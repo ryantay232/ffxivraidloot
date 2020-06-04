@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const memberSlice = createSlice({
   name: "member",
   initialState: {
-    characterName: "Character Name",
+    characterName: "Firstname Lastname",
     job: "BLM",
     ilv: 0,
     current: {
@@ -122,8 +122,9 @@ export const memberSlice = createSlice({
     },
   },
   reducers: {
-    setCharacterName: (state, action) => {
-      state.characterName = action.payload;
+    setInfo: (state, action) => {
+      state.characterName = action.payload.name;
+      state.job = action.payload.job;
     },
     setIlv: (state, action) => {
       state.ilv = action.payload;
@@ -131,9 +132,7 @@ export const memberSlice = createSlice({
   },
 });
 
-export const { setCharacterName } = memberSlice.actions;
-
-export const { setIlv } = memberSlice.actions;
+export const { setInfo, setIlv } = memberSlice.actions;
 
 export const selectCharacterName = (state) => state.member.characterName;
 

@@ -2,8 +2,10 @@
 export const AST = require("./job/AST.svg");
 export const BLM = require("./job/BLM.svg");
 export const BRD = require("./job/BRD.svg");
+export const DNC = require("./job/DNC.svg");
 export const DRG = require("./job/DRG.svg");
 export const DRK = require("./job/DRK.svg");
+export const GNB = require("./job/GNB.svg");
 export const MCH = require("./job/MCH.svg");
 export const MNK = require("./job/MNK.svg");
 export const NIN = require("./job/NIN.svg");
@@ -13,6 +15,7 @@ export const SAM = require("./job/SAM.svg");
 export const SCH = require("./job/SCH.svg");
 export const SMN = require("./job/SMN.svg");
 export const WAR = require("./job/WAR.svg");
+export const WHM = require("./job/WHM.svg");
 
 //equipment icons
 export const BODY = require("./eq/body.svg");
