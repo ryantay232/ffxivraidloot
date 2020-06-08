@@ -15,8 +15,6 @@ import FormControl from "react-bootstrap/FormControl";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Equipment from "../equipment/Equipment.js";
 import {
-  setCharacterName,
-  setJob,
   setInfo,
   selectCharacterName,
   selectJob,
@@ -25,6 +23,7 @@ import {
   selectBis,
 } from "./memberSlice.js";
 import * as Icons from "../../assets/index.js";
+import eqData from "../../assets/eqData/eqData.json";
 import Dropdown from "react-bootstrap/Dropdown";
 
 function Member() {
@@ -48,6 +47,21 @@ function Member() {
     RDM: Icons.RDM,
   };
 
+  const eqIcons = [
+    Icons.MAIN_ARM,
+    Icons.HEAD,
+    Icons.BODY,
+    Icons.HANDS,
+    Icons.WAIST,
+    Icons.LEGS,
+    Icons.FEET,
+    Icons.EARRINGS,
+    Icons.NECKLACE,
+    Icons.BRACELETS,
+    Icons.RING,
+    Icons.RING,
+  ];
+
   const characterName = useSelector(selectCharacterName);
   const job = useSelector(selectJob);
   const ilv = useSelector(selectIlv);
@@ -56,27 +70,30 @@ function Member() {
 
   const dispatch = useDispatch();
 
-  const [namePayload, setNamePayload] = useState("");
-  const [jobPayload, setJobPayload] = useState(job);
-  const [show, setShow] = useState(false);
+  const [nameState, setNameState] = useState("");
+  const [jobState, setJobState] = useState(job);
+  const [currentState, setCurrentState] = useState(currentList);
+  const [bisState, setBisState] = useState(bisList);
 
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   return (
-    <Container fluid className="Member border">
-      <Row className="justify-content-between">
-        <h4 className="pl-2">
-          <img width={50} height={50} src={jobs[job]} alt="job" />{" "}
-          {characterName} <Badge variant="primary">ilv {ilv}</Badge>
-        </h4>
-        <Button
-          className="mt-2 h-75 mr-3"
-          variant="secondary"
-          onClick={handleShow}
-        >
-          Edit
-        </Button>
+    <Container fluid className="Member border rounded">
+      {/*Member screen*/}
+      <Row>
+        <Col xs={9}>
+          <h4>
+            <img width={50} height={50} src={jobs[job]} alt="job" />{" "}
+            {characterName} <Badge variant="primary">ilv {ilv}</Badge>
+          </h4>
+        </Col>
+        <Col>
+          <Button className="mt-2" variant="secondary" onClick={handleShow}>
+            Edit
+          </Button>
+        </Col>
       </Row>
       <Row xs={1} sm={2}>
         <Col>
@@ -87,6 +104,7 @@ function Member() {
         </Col>
       </Row>
 
+      {/*Popup member editor -- to be refactored in another file*/}
       <Modal show={show} onHide={handleClose}>
         <ModalHeader closeButton>
           <ModalTitle>Editing {characterName}</ModalTitle>
@@ -97,11 +115,11 @@ function Member() {
               <DropdownButton
                 id="job-select"
                 title={
-                  <img width={34} height={34} src={jobs[jobPayload]} alt="job" />
+                  <img width={34} height={34} src={jobs[jobState]} alt="job" />
                 }
               >
                 {Object.keys(jobs).map((keyName, i) => (
-                  <Dropdown.Item onClick={() => setJobPayload(keyName)}>
+                  <Dropdown.Item onClick={() => setJobState(keyName)} key={i}>
                     {
                       <img
                         width={25}
@@ -116,10 +134,46 @@ function Member() {
               </DropdownButton>
             </InputGroup.Prepend>
             <FormControl
-              placeholder="Character name"
-              onChange={(e) => setNamePayload(e.target.value)}
+              defaultValue={nameState}
+              onChange={(e) => setNameState(e.target.value)}
             />
           </InputGroup>
+          <Row xs={1} sm={2}>
+            <Col>
+              <h4>Current</h4>
+              {Object.keys(currentState).map((keyName, i) => (
+                <Row key={i}>
+                  <img width={25} height={25} src={eqIcons[i]} alt="eq" />
+                  <DropdownButton
+                    id={keyName}
+                    title={currentState[keyName].type}
+                    key={i}
+                  >
+                    {eqData.map((item, j) => (
+                      <Dropdown.Item
+                        onClick={() => {
+                          setCurrentState((prevState) => ({
+                            ...prevState,
+                            [keyName]: {
+                              name: "",
+                              type: item.type,
+                              ilv: item.ilv,
+                            },
+                          }));
+                        }}
+                        key={j}
+                      >
+                        {item.type}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+                </Row>
+              ))}
+            </Col>
+            <Col>
+              <h4>BIS</h4>
+            </Col>
+          </Row>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -127,9 +181,11 @@ function Member() {
             variant="primary"
             onClick={() => {
               const payload = {
-                name: namePayload,
-                job: jobPayload,
-              }
+                name: nameState,
+                job: jobState,
+                current: currentState,
+                bis: bisState,
+              };
               dispatch(setInfo(payload));
               handleClose();
             }}

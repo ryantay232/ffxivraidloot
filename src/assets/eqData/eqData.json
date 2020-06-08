@@ -1,0 +1,32 @@
+[
+  {
+    "type": "raid weapon",
+    "eqSlot": "weapon",
+    "ilv": 505
+  },
+  {
+    "type": "raid",
+    "eqSlot": "all",
+    "ilv": 500
+  },
+  {
+    "type": "augmented tome",
+    "eqSlot": "all",
+    "ilv": 500
+  },
+  {
+    "type": "tome",
+    "eqSlot": "all",
+    "ilv": 490
+  },
+  {
+    "type": "trial",
+    "eqSlot": "weapon",
+    "ilv": 485
+  },
+  {
+    "type": "crafted",
+    "eqSlot": "all",
+    "ilv": 480
+  }
+]
