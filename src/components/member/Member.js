@@ -5,17 +5,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
-import ModalBody from "react-bootstrap/ModalBody";
-import ModalFooter from "react-bootstrap/ModalFooter";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-import DropdownButton from "react-bootstrap/DropdownButton";
+
 import Equipment from "../equipment/Equipment.js";
 import {
-  setInfo,
   selectCharacterName,
   selectJob,
   selectIlv,
@@ -23,8 +15,7 @@ import {
   selectBis,
 } from "./memberSlice.js";
 import * as Icons from "../../assets/index.js";
-import eqData from "../../assets/eqData/eqData.json";
-import Dropdown from "react-bootstrap/Dropdown";
+import MemberEdit from "./MemberEdit.js";
 
 function Member() {
   const jobs = {
@@ -47,33 +38,11 @@ function Member() {
     RDM: Icons.RDM,
   };
 
-  const eqIcons = [
-    Icons.MAIN_ARM,
-    Icons.HEAD,
-    Icons.BODY,
-    Icons.HANDS,
-    Icons.WAIST,
-    Icons.LEGS,
-    Icons.FEET,
-    Icons.EARRINGS,
-    Icons.NECKLACE,
-    Icons.BRACELETS,
-    Icons.RING,
-    Icons.RING,
-  ];
-
   const characterName = useSelector(selectCharacterName);
   const job = useSelector(selectJob);
   const ilv = useSelector(selectIlv);
-  const currentList = useSelector(selectCurrent);
-  const bisList = useSelector(selectBis);
-
-  const dispatch = useDispatch();
-
-  const [nameState, setNameState] = useState("");
-  const [jobState, setJobState] = useState(job);
-  const [currentState, setCurrentState] = useState(currentList);
-  const [bisState, setBisState] = useState(bisList);
+  const currentEqList = useSelector(selectCurrent);
+  const bisEqList = useSelector(selectBis);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -97,103 +66,22 @@ function Member() {
       </Row>
       <Row xs={1} sm={2}>
         <Col>
-          <Equipment name="Current" list={currentList} />
+          <Equipment name="Current" list={currentEqList} />
         </Col>
         <Col>
-          <Equipment name="BIS" list={bisList} />
+          <Equipment name="BIS" list={bisEqList} />
         </Col>
       </Row>
-
-      {/*Popup member editor -- to be refactored in another file*/}
-      <Modal show={show} onHide={handleClose}>
-        <ModalHeader closeButton>
-          <ModalTitle>Editing {characterName}</ModalTitle>
-        </ModalHeader>
-        <ModalBody>
-          <InputGroup size="lg">
-            <InputGroup.Prepend>
-              <DropdownButton
-                id="job-select"
-                title={
-                  <img width={34} height={34} src={jobs[jobState]} alt="job" />
-                }
-              >
-                {Object.keys(jobs).map((keyName, i) => (
-                  <Dropdown.Item onClick={() => setJobState(keyName)} key={i}>
-                    {
-                      <img
-                        width={25}
-                        height={25}
-                        src={jobs[keyName]}
-                        alt="job"
-                      />
-                    }{" "}
-                    {keyName}
-                  </Dropdown.Item>
-                ))}
-              </DropdownButton>
-            </InputGroup.Prepend>
-            <FormControl
-              defaultValue={nameState}
-              onChange={(e) => setNameState(e.target.value)}
-            />
-          </InputGroup>
-          <Row xs={1} sm={2}>
-            <Col>
-              <h4>Current</h4>
-              {Object.keys(currentState).map((keyName, i) => (
-                <Row key={i}>
-                  <img width={25} height={25} src={eqIcons[i]} alt="eq" />
-                  <DropdownButton
-                    id={keyName}
-                    title={currentState[keyName].type}
-                    key={i}
-                  >
-                    {eqData.map((item, j) => (
-                      <Dropdown.Item
-                        onClick={() => {
-                          setCurrentState((prevState) => ({
-                            ...prevState,
-                            [keyName]: {
-                              name: "",
-                              type: item.type,
-                              ilv: item.ilv,
-                            },
-                          }));
-                        }}
-                        key={j}
-                      >
-                        {item.type}
-                      </Dropdown.Item>
-                    ))}
-                  </DropdownButton>
-                </Row>
-              ))}
-            </Col>
-            <Col>
-              <h4>BIS</h4>
-            </Col>
-          </Row>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            className="mt-1"
-            variant="primary"
-            onClick={() => {
-              const payload = {
-                name: nameState,
-                job: jobState,
-                current: currentState,
-                bis: bisState,
-              };
-              dispatch(setInfo(payload));
-              handleClose();
-            }}
-          >
-            Submit
-          </Button>
-        </ModalFooter>
-      </Modal>
+      {/*Pop up member edit modal*/}
+      <MemberEdit
+        characterName={characterName}
+        job={job}
+        currentEqList={currentEqList}
+        bisEqList={bisEqList}
+        jobs={jobs}
+        show={show}
+        handleClose={handleClose}
+      />
     </Container>
   );
 }
