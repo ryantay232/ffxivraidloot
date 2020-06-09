@@ -14,25 +14,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 import { setInfo } from "./memberSlice.js";
-import * as Icons from "../../assets/index.js";
+import { jobIcons, eqIcons } from "../../assets/index.js";
 import eqData from "../../assets/eqData/eqData.json";
 
 function MemberEdit(props) {
-  const eqIcons = [
-    Icons.MAIN_ARM,
-    Icons.HEAD,
-    Icons.BODY,
-    Icons.HANDS,
-    Icons.WAIST,
-    Icons.LEGS,
-    Icons.FEET,
-    Icons.EARRINGS,
-    Icons.NECKLACE,
-    Icons.BRACELETS,
-    Icons.RING,
-    Icons.RING,
-  ];
-
   const dispatch = useDispatch();
 
   const [nameState, setNameState] = useState(props.characterName);
@@ -46,45 +31,53 @@ function MemberEdit(props) {
         <ModalTitle>Editing {props.characterName}</ModalTitle>
       </ModalHeader>
       <ModalBody>
-        <InputGroup size="lg">
-          <InputGroup.Prepend>
-            <DropdownButton
-              id="job-select"
-              title={
-                <img
-                  width={34}
-                  height={34}
-                  src={props.jobs[jobState]}
-                  alt="job"
-                />
-              }
-            >
-              {Object.keys(props.jobs).map((keyName, i) => (
-                <Dropdown.Item onClick={() => setJobState(keyName)} key={i}>
-                  {
-                    <img
-                      width={25}
-                      height={25}
-                      src={props.jobs[keyName]}
-                      alt="job"
-                    />
-                  }{" "}
-                  {keyName}
-                </Dropdown.Item>
-              ))}
-            </DropdownButton>
-          </InputGroup.Prepend>
-          <FormControl
-            defaultValue={props.characterName}
-            onChange={(e) => setNameState(e.target.value)}
-          />
-        </InputGroup>
-        <Row xs={1} sm={2}>
+        <Row className="px-3">
+          <InputGroup size="lg">
+            <InputGroup.Prepend>
+              <DropdownButton
+                id="job-select"
+                title={
+                  <img
+                    width={34}
+                    height={34}
+                    src={jobIcons[jobState]}
+                    alt="job"
+                  />
+                }
+              >
+                {Object.keys(jobIcons).map((keyName, i) => (
+                  <Dropdown.Item onClick={() => setJobState(keyName)} key={i}>
+                    {
+                      <img
+                        width={25}
+                        height={25}
+                        src={jobIcons[keyName]}
+                        alt="job"
+                      />
+                    }{" "}
+                    {keyName}
+                  </Dropdown.Item>
+                ))}
+              </DropdownButton>
+            </InputGroup.Prepend>
+            <FormControl
+              defaultValue={props.characterName}
+              onChange={(e) => setNameState(e.target.value)}
+            />
+          </InputGroup>
+        </Row>
+        <Row className="px-3">
+          {/*Edit current eq list*/}
           <Col>
             <h4>Current</h4>
             {Object.keys(currentEqState).map((keyName, i) => (
               <Row key={i}>
-                <img width={25} height={25} src={eqIcons[i]} alt="eq" />
+                <img
+                  width={25}
+                  height={25}
+                  src={eqIcons[keyName]}
+                  alt="eq"
+                />
                 <DropdownButton
                   id={keyName}
                   title={currentEqState[keyName].type}
@@ -111,8 +104,42 @@ function MemberEdit(props) {
               </Row>
             ))}
           </Col>
+          {/*Edit BIS eq list*/}
           <Col>
             <h4>BIS</h4>
+            {Object.keys(bisEqState).map((keyName, i) => (
+              <Row key={i}>
+                <img
+                  width={25}
+                  height={25}
+                  src={eqIcons[keyName]}
+                  alt="eq"
+                />
+                <DropdownButton
+                  id={keyName}
+                  title={bisEqState[keyName].type}
+                  key={i}
+                >
+                  {eqData.map((item, j) => (
+                    <Dropdown.Item
+                      onClick={() => {
+                        setBisEqState((prevState) => ({
+                          ...prevState,
+                          [keyName]: {
+                            name: "",
+                            type: item.type,
+                            ilv: item.ilv,
+                          },
+                        }));
+                      }}
+                      key={j}
+                    >
+                      {item.type}
+                    </Dropdown.Item>
+                  ))}
+                </DropdownButton>
+              </Row>
+            ))}
           </Col>
         </Row>
       </ModalBody>

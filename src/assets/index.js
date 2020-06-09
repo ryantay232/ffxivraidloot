@@ -1,32 +1,67 @@
 //jobIcons icons
-export const AST = require("./jobIcons/AST.svg");
-export const BLM = require("./jobIcons/BLM.svg");
-export const BRD = require("./jobIcons/BRD.svg");
-export const DNC = require("./jobIcons/DNC.svg");
-export const DRG = require("./jobIcons/DRG.svg");
-export const DRK = require("./jobIcons/DRK.svg");
-export const GNB = require("./jobIcons/GNB.svg");
-export const MCH = require("./jobIcons/MCH.svg");
-export const MNK = require("./jobIcons/MNK.svg");
-export const NIN = require("./jobIcons/NIN.svg");
-export const PLD = require("./jobIcons/PLD.svg");
-export const RDM = require("./jobIcons/RDM.svg");
-export const SAM = require("./jobIcons/SAM.svg");
-export const SCH = require("./jobIcons/SCH.svg");
-export const SMN = require("./jobIcons/SMN.svg");
-export const WAR = require("./jobIcons/WAR.svg");
-export const WHM = require("./jobIcons/WHM.svg");
+const AST = require("./jobIcons/AST.svg");
+const BLM = require("./jobIcons/BLM.svg");
+const BRD = require("./jobIcons/BRD.svg");
+const DNC = require("./jobIcons/DNC.svg");
+const DRG = require("./jobIcons/DRG.svg");
+const DRK = require("./jobIcons/DRK.svg");
+const GNB = require("./jobIcons/GNB.svg");
+const MCH = require("./jobIcons/MCH.svg");
+const MNK = require("./jobIcons/MNK.svg");
+const NIN = require("./jobIcons/NIN.svg");
+const PLD = require("./jobIcons/PLD.svg");
+const RDM = require("./jobIcons/RDM.svg");
+const SAM = require("./jobIcons/SAM.svg");
+const SCH = require("./jobIcons/SCH.svg");
+const SMN = require("./jobIcons/SMN.svg");
+const WAR = require("./jobIcons/WAR.svg");
+const WHM = require("./jobIcons/WHM.svg");
+
+export const jobIcons = {
+  PLD: PLD,
+  WAR: WAR,
+  DRK: DRK,
+  GNB: GNB,
+  WHM: WHM,
+  SCH: SCH,
+  AST: AST,
+  MNK: MNK,
+  DRG: DRG,
+  NIN: NIN,
+  SAM: SAM,
+  BRD: BRD,
+  MCH: MCH,
+  DNC: DNC,
+  BLM: BLM,
+  SMN: SMN,
+  RDM: RDM,
+};
 
 //equipment icons
-export const BODY = require("./eqIcons/body.svg");
-export const BRACELETS = require("./eqIcons/bracelets.svg");
-export const EARRINGS = require("./eqIcons/earrings.svg");
-export const FEET = require("./eqIcons/feet.svg");
-export const HANDS = require("./eqIcons/hands.svg");
-export const HEAD = require("./eqIcons/head.svg");
-export const LEGS = require("./eqIcons/legs.svg");
-export const MAIN_ARM = require("./eqIcons/main_arm.svg");
-export const NECKLACE = require("./eqIcons/necklace.svg");
-export const RING = require("./eqIcons/ring.svg");
-export const SUB_ARM = require("./eqIcons/sub_arm.svg");
-export const WAIST = require("./eqIcons/waist.svg");
+const BODY = require("./eqIcons/body.svg");
+const BRACELETS = require("./eqIcons/bracelets.svg");
+const EARRINGS = require("./eqIcons/earrings.svg");
+const FEET = require("./eqIcons/feet.svg");
+const HANDS = require("./eqIcons/hands.svg");
+const HEAD = require("./eqIcons/head.svg");
+const LEGS = require("./eqIcons/legs.svg");
+const MAIN_ARM = require("./eqIcons/main_arm.svg");
+const NECKLACE = require("./eqIcons/necklace.svg");
+const RING = require("./eqIcons/ring.svg");
+const SUB_ARM = require("./eqIcons/sub_arm.svg");
+const WAIST = require("./eqIcons/waist.svg");
+
+export const eqIcons = {
+  mainArm: MAIN_ARM,
+  head: HEAD,
+  body: BODY,
+  hands: HANDS,
+  waist: WAIST,
+  legs: LEGS,
+  feet: FEET,
+  earrings: EARRINGS,
+  necklace: NECKLACE,
+  bracelets: BRACELETS,
+  ring1: RING,
+  ring2: RING,
+};

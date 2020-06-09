@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,30 +14,10 @@ import {
   selectCurrent,
   selectBis,
 } from "./memberSlice.js";
-import * as Icons from "../../assets/index.js";
+import { jobIcons } from "../../assets/index.js";
 import MemberEdit from "./MemberEdit.js";
 
 function Member() {
-  const jobs = {
-    PLD: Icons.PLD,
-    WAR: Icons.WAR,
-    DRK: Icons.DRK,
-    GNB: Icons.GNB,
-    WHM: Icons.WHM,
-    SCH: Icons.SCH,
-    AST: Icons.AST,
-    MNK: Icons.MNK,
-    DRG: Icons.DRG,
-    NIN: Icons.NIN,
-    SAM: Icons.SAM,
-    BRD: Icons.BRD,
-    MCH: Icons.MCH,
-    DNC: Icons.DNC,
-    BLM: Icons.BLM,
-    SMN: Icons.SMN,
-    RDM: Icons.RDM,
-  };
-
   const characterName = useSelector(selectCharacterName);
   const job = useSelector(selectJob);
   const ilv = useSelector(selectIlv);
@@ -54,7 +34,7 @@ function Member() {
       <Row>
         <Col xs={9}>
           <h4>
-            <img width={50} height={50} src={jobs[job]} alt="job" />{" "}
+            <img width={50} height={50} src={jobIcons[job]} alt="job" />{" "}
             {characterName} <Badge variant="primary">ilv {ilv}</Badge>
           </h4>
         </Col>
@@ -78,7 +58,6 @@ function Member() {
         job={job}
         currentEqList={currentEqList}
         bisEqList={bisEqList}
-        jobs={jobs}
         show={show}
         handleClose={handleClose}
       />

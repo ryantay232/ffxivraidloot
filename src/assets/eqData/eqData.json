@@ -1,31 +1,36 @@
 [
   {
-    "type": "raid weapon",
+    "type": "Raid",
     "eqSlot": "weapon",
     "ilv": 505
   },
   {
-    "type": "raid",
+    "type": "Raid",
     "eqSlot": "all",
     "ilv": 500
   },
   {
-    "type": "augmented tome",
+    "type": "Augmented Tome",
     "eqSlot": "all",
     "ilv": 500
   },
   {
-    "type": "tome",
+    "type": "Tome",
     "eqSlot": "all",
     "ilv": 490
   },
   {
-    "type": "trial",
+    "type": "Trial",
     "eqSlot": "weapon",
     "ilv": 485
   },
   {
-    "type": "crafted",
+    "type": "Crafted",
+    "eqSlot": "all",
+    "ilv": 480
+  },
+  {
+    "type": "NM Raid",
     "eqSlot": "all",
     "ilv": 480
   }
