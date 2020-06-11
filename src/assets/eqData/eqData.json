@@ -1,37 +1,128 @@
 [
   {
     "type": "Raid",
-    "eqSlot": "weapon",
+    "eqSlot": {
+      "mainArm": true,
+      "head": false,
+      "body": false,
+      "hands": false,
+      "waist": false,
+      "legs": false,
+      "feet": false,
+      "earrings": false,
+      "necklace": false,
+      "bracelets": false,
+      "ring1": false,
+      "ring2": false
+    },
     "ilv": 505
   },
   {
     "type": "Raid",
-    "eqSlot": "all",
+    "eqSlot": {
+      "mainArm": false,
+      "head": true,
+      "body": true,
+      "hands": true,
+      "waist": true,
+      "legs": true,
+      "feet": true,
+      "earrings": true,
+      "necklace": true,
+      "bracelets": true,
+      "ring1": true,
+      "ring2": true
+    },
     "ilv": 500
   },
   {
-    "type": "Augmented Tome",
-    "eqSlot": "all",
+    "type": "A. Tome",
+    "eqSlot": {
+      "mainArm": true,
+      "head": true,
+      "body": true,
+      "hands": true,
+      "waist": true,
+      "legs": true,
+      "feet": true,
+      "earrings": true,
+      "necklace": true,
+      "bracelets": true,
+      "ring1": true,
+      "ring2": true
+    },
     "ilv": 500
   },
   {
     "type": "Tome",
-    "eqSlot": "all",
+    "eqSlot": {
+      "mainArm": true,
+      "head": true,
+      "body": true,
+      "hands": true,
+      "waist": true,
+      "legs": true,
+      "feet": true,
+      "earrings": true,
+      "necklace": true,
+      "bracelets": true,
+      "ring1": true,
+      "ring2": true
+    },
     "ilv": 490
   },
   {
     "type": "Trial",
-    "eqSlot": "weapon",
+    "eqSlot": {
+      "mainArm": true,
+      "head": false,
+      "body": false,
+      "hands": false,
+      "waist": false,
+      "legs": false,
+      "feet": false,
+      "earrings": false,
+      "necklace": false,
+      "bracelets": false,
+      "ring1": false,
+      "ring2": false
+    },
     "ilv": 485
   },
   {
     "type": "Crafted",
-    "eqSlot": "all",
+    "eqSlot": {
+      "mainArm": true,
+      "head": true,
+      "body": true,
+      "hands": true,
+      "waist": true,
+      "legs": true,
+      "feet": true,
+      "earrings": true,
+      "necklace": true,
+      "bracelets": true,
+      "ring1": true,
+      "ring2": true
+    },
     "ilv": 480
   },
   {
     "type": "NM Raid",
-    "eqSlot": "all",
+    "eqSlot": {
+      "mainArm": false,
+      "head": true,
+      "body": true,
+      "hands": true,
+      "waist": true,
+      "legs": true,
+      "feet": true,
+      "earrings": true,
+      "necklace": true,
+      "bracelets": true,
+      "ring1": true,
+      "ring2": true
+    },
     "ilv": 480
   }
 ]

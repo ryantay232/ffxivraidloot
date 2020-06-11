@@ -1,5 +1,8 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Badge from "react-bootstrap/Badge";
 
 import { eqIcons } from "../../assets/index.js";
 
@@ -22,13 +25,15 @@ function Equipment(props) {
         </ListGroup.Item>
         {Object.keys(props.list).map((keyName, i) => (
           <ListGroup.Item className="small-table" key={i}>
-            <img
-              width={25}
-              height={25}
-              src={eqIcons[keyName]}
-              alt="eq"
-            />{" "}
-            {props.list[keyName].type}
+            <Row>
+              <Col>
+                <img width={25} height={25} src={eqIcons[keyName]} alt="eq" />{" "}
+                {props.list[keyName].type}
+              </Col>
+              <Col className="col-3">
+                <Badge variant="primary">ilv {props.list[keyName].ilv}</Badge>
+              </Col>
+            </Row>
           </ListGroup.Item>
         ))}
       </ListGroup>

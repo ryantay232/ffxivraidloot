@@ -4,114 +4,17 @@ import {
   defaultName,
   defaultJob,
   defaultIlv,
-  defaultEq,
+  defaultEqStructure,
 } from "../../app/defaultVars.js";
+
 export const memberSlice = createSlice({
   name: "member",
   initialState: {
     characterName: defaultName,
     job: defaultJob,
     ilv: defaultIlv,
-    current: {
-      mainArm: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      head: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      body: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      hands: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      waist: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      legs: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      feet: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      earrings: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      necklace: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      bracelets: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      ring1: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      ring2: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-    },
-    bis: {
-      mainArm: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      head: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      body: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      hands: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      waist: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      legs: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      feet: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      earrings: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      necklace: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      bracelets: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      ring1: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-      ring2: {
-        type: defaultEq,
-        ilv: defaultIlv,
-      },
-    },
+    current: Object.assign({}, defaultEqStructure),
+    bis: Object.assign({}, defaultEqStructure),
   },
   reducers: {
     setInfo: (state, action) => {
@@ -119,14 +22,16 @@ export const memberSlice = createSlice({
       state.job = action.payload.job;
       state.current = action.payload.current;
       state.bis = action.payload.bis;
-    },
-    setIlv: (state, action) => {
-      state.ilv = action.payload;
+      state.ilv = Math.floor(
+        Object.keys(action.payload.current)
+          .map((x) => action.payload.current[x].ilv)
+          .reduce((x, y) => x + y, 0) / 12
+      );
     },
   },
 });
 
-export const { setInfo, setIlv } = memberSlice.actions;
+export const { setInfo } = memberSlice.actions;
 
 export const selectCharacterName = (state) => state.member.characterName;
 
