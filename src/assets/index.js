@@ -48,7 +48,6 @@ const LEGS = require("./eqIcons/legs.svg");
 const MAIN_ARM = require("./eqIcons/main_arm.svg");
 const NECKLACE = require("./eqIcons/necklace.svg");
 const RING = require("./eqIcons/ring.svg");
-const SUB_ARM = require("./eqIcons/sub_arm.svg");
 const WAIST = require("./eqIcons/waist.svg");
 
 export const eqIcons = {

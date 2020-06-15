@@ -32,19 +32,19 @@ function Member() {
     <Container fluid className="Member border rounded">
       {/*Member screen*/}
       <Row>
-        <Col xs={9}>
+        <Col>
           <h4>
             <img width={50} height={50} src={jobIcons[job]} alt="job" />{" "}
             {characterName} <Badge variant="primary">ilv {ilv}</Badge>
           </h4>
         </Col>
-        <Col>
+        <Col xs={3}>
           <Button className="mt-2" variant="secondary" onClick={handleShow}>
             Edit
           </Button>
         </Col>
       </Row>
-      <Row xs={1} sm={2}>
+      <Row xs={1} sm={1} md={2}>
         <Col>
           <Equipment name="Current" list={currentEqList} />
         </Col>

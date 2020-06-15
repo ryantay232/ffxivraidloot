@@ -1,5 +1,6 @@
 [
   {
+    "id": 0,
     "type": "Raid",
     "eqSlot": {
       "mainArm": true,
@@ -18,6 +19,7 @@
     "ilv": 505
   },
   {
+    "id": 1,
     "type": "Raid",
     "eqSlot": {
       "mainArm": false,
@@ -36,6 +38,7 @@
     "ilv": 500
   },
   {
+    "id": 2,
     "type": "A. Tome",
     "eqSlot": {
       "mainArm": true,
@@ -54,6 +57,7 @@
     "ilv": 500
   },
   {
+    "id": 3,
     "type": "Tome",
     "eqSlot": {
       "mainArm": true,
@@ -72,6 +76,7 @@
     "ilv": 490
   },
   {
+    "id": 4,
     "type": "Trial",
     "eqSlot": {
       "mainArm": true,
@@ -90,6 +95,7 @@
     "ilv": 485
   },
   {
+    "id": 5,
     "type": "Crafted",
     "eqSlot": {
       "mainArm": true,
@@ -108,6 +114,7 @@
     "ilv": 480
   },
   {
+    "id": 6,
     "type": "NM Raid",
     "eqSlot": {
       "mainArm": false,
