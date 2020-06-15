@@ -159,6 +159,7 @@ function MemberEdit(props) {
           variant="success"
           onClick={() => {
             const payload = {
+              memberId: props.memberId,
               name: nameState,
               job: jobState,
               current: currentEqState,

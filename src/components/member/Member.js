@@ -17,12 +17,12 @@ import {
 import { jobIcons } from "../../assets/index.js";
 import MemberEdit from "./MemberEdit.js";
 
-function Member() {
-  const characterName = useSelector(selectCharacterName);
-  const job = useSelector(selectJob);
-  const ilv = useSelector(selectIlv);
-  const currentEqList = useSelector(selectCurrent);
-  const bisEqList = useSelector(selectBis);
+function Member(props) {
+  const characterName = useSelector(selectCharacterName)[props.memberId];
+  const job = useSelector(selectJob)[props.memberId];
+  const ilv = useSelector(selectIlv)[props.memberId];
+  const currentEqList = useSelector(selectCurrent)[props.memberId];
+  const bisEqList = useSelector(selectBis)[props.memberId];
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -54,6 +54,7 @@ function Member() {
       </Row>
       {/*Pop up member edit modal*/}
       <MemberEdit
+        memberId={props.memberId}
         characterName={characterName}
         job={job}
         currentEqList={currentEqList}
