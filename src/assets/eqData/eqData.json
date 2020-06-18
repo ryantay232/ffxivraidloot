@@ -131,5 +131,24 @@
       "ring2": true
     },
     "ilv": 480
+  },
+  {
+    "id": 7,
+    "type": "Relic",
+    "eqSlot": {
+      "mainArm": true,
+      "head": true,
+      "body": true,
+      "hands": true,
+      "waist": false,
+      "legs": true,
+      "feet": true,
+      "earrings": false,
+      "necklace": false,
+      "bracelets": false,
+      "ring1": false,
+      "ring2": false
+    },
+    "ilv": 480
   }
 ]

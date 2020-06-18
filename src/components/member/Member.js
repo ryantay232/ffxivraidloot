@@ -13,6 +13,8 @@ import {
   selectIlv,
   selectCurrent,
   selectBis,
+  selectTwine,
+  selectPolish,
 } from "./memberSlice.js";
 import { jobIcons } from "../../assets/index.js";
 import MemberEdit from "./MemberEdit.js";
@@ -23,6 +25,8 @@ function Member(props) {
   const ilv = useSelector(selectIlv)[props.memberId];
   const currentEqList = useSelector(selectCurrent)[props.memberId];
   const bisEqList = useSelector(selectBis)[props.memberId];
+  const twine = useSelector(selectTwine)[props.memberId];
+  const polish = useSelector(selectPolish)[props.memberId];
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -50,6 +54,14 @@ function Member(props) {
         </Col>
         <Col>
           <Equipment name="BIS" list={bisEqList} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          Twine: <Badge variant="primary">{twine}</Badge>
+        </Col>
+        <Col>
+          Polish: <Badge variant="primary">{polish}</Badge>
         </Col>
       </Row>
       {/*Pop up member edit modal*/}

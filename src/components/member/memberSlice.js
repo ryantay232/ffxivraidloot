@@ -1,64 +1,73 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-  defaultName,
-  defaultJob,
-  defaultIlv,
-  defaultEqStructure,
+  defaultNames,
+  defaultJobs,
+  defaultIlvs,
+  defaultEqList,
+  dummyBis,
+  dummyJobs,
 } from "../../app/defaultVars.js";
+
+const twineEq = ["head", "body", "hands", "legs", "feet"];
+const polishEq = [
+  "waist",
+  "earrings",
+  "necklace",
+  "bracelets",
+  "ring1",
+  "ring2",
+];
+
+function calculateUpgrades(eqList, bisList) {
+  let ester = 0;
+  let twine = 0;
+  let polish = 0;
+  Object.keys(bisList)
+    .filter(
+      (eq) =>
+        bisList[eq].type === "A. Tome" && eqList[eq].type !== bisList[eq].type
+    )
+    .map((eq, i) => {
+      if (twineEq.includes(eq)) {
+        twine++;
+      } else if (polishEq.includes(eq)) {
+        polish++;
+      } else {
+        ester++;
+      }
+      return null;
+    });
+  return [ester, twine, polish]
+}
 
 export const memberSlice = createSlice({
   name: "member",
   initialState: {
-    characterName: {
-      0: defaultName,
-      1: defaultName,
-      2: defaultName,
-      3: defaultName,
-      4: defaultName,
-      5: defaultName,
-      6: defaultName,
-      7: defaultName,
+    characterName: defaultNames,
+    job: dummyJobs,
+    ilv: defaultIlvs,
+    current: defaultEqList,
+    bis: dummyBis,
+    twine: {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
     },
-    job: {
-      0: defaultJob,
-      1: defaultJob,
-      2: defaultJob,
-      3: defaultJob,
-      4: defaultJob,
-      5: defaultJob,
-      6: defaultJob,
-      7: defaultJob,
-    },
-    ilv: {
-      0: defaultIlv,
-      1: defaultIlv,
-      2: defaultIlv,
-      3: defaultIlv,
-      4: defaultIlv,
-      5: defaultIlv,
-      6: defaultIlv,
-      7: defaultIlv,
-    },
-    current: {
-      0: Object.assign({}, defaultEqStructure),
-      1: Object.assign({}, defaultEqStructure),
-      2: Object.assign({}, defaultEqStructure),
-      3: Object.assign({}, defaultEqStructure),
-      4: Object.assign({}, defaultEqStructure),
-      5: Object.assign({}, defaultEqStructure),
-      6: Object.assign({}, defaultEqStructure),
-      7: Object.assign({}, defaultEqStructure),
-    },
-    bis: {
-      0: Object.assign({}, defaultEqStructure),
-      1: Object.assign({}, defaultEqStructure),
-      2: Object.assign({}, defaultEqStructure),
-      3: Object.assign({}, defaultEqStructure),
-      4: Object.assign({}, defaultEqStructure),
-      5: Object.assign({}, defaultEqStructure),
-      6: Object.assign({}, defaultEqStructure),
-      7: Object.assign({}, defaultEqStructure),
+    polish: {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
     },
   },
   reducers: {
@@ -72,6 +81,12 @@ export const memberSlice = createSlice({
           .map((x) => action.payload.current[x].ilv)
           .reduce((x, y) => x + y, 0) / 12
       );
+      const upgrades = calculateUpgrades(
+        action.payload.current,
+        action.payload.bis
+      );
+      state.twine[action.payload.memberId] = upgrades[1];
+      state.polish[action.payload.memberId] = upgrades[2];
     },
   },
 });
@@ -87,5 +102,9 @@ export const selectIlv = (state) => state.member.ilv;
 export const selectCurrent = (state) => state.member.current;
 
 export const selectBis = (state) => state.member.bis;
+
+export const selectTwine = (state) => state.member.twine;
+
+export const selectPolish = (state) => state.member.polish;
 
 export default memberSlice.reducer;
