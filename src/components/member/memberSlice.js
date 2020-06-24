@@ -7,10 +7,12 @@ import {
   defaultEqList,
   dummyBis,
   dummyJobs,
+  dummyTwines,
+  dummyGlazes,
 } from "../../app/defaultVars.js";
 
 const twineEq = ["head", "body", "hands", "legs", "feet"];
-const polishEq = [
+const glazeEq = [
   "waist",
   "earrings",
   "necklace",
@@ -31,14 +33,14 @@ function calculateUpgrades(eqList, bisList) {
     .map((eq, i) => {
       if (twineEq.includes(eq)) {
         twine++;
-      } else if (polishEq.includes(eq)) {
+      } else if (glazeEq.includes(eq)) {
         polish++;
       } else {
         ester++;
       }
       return null;
     });
-  return [ester, twine, polish]
+  return [ester, twine, polish];
 }
 
 export const memberSlice = createSlice({
@@ -49,26 +51,8 @@ export const memberSlice = createSlice({
     ilv: defaultIlvs,
     current: defaultEqList,
     bis: dummyBis,
-    twine: {
-      0: 0,
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0,
-      7: 0,
-    },
-    polish: {
-      0: 0,
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 0,
-      5: 0,
-      6: 0,
-      7: 0,
-    },
+    twine: dummyTwines,
+    glaze: dummyGlazes,
   },
   reducers: {
     setInfo: (state, action) => {
@@ -86,7 +70,7 @@ export const memberSlice = createSlice({
         action.payload.bis
       );
       state.twine[action.payload.memberId] = upgrades[1];
-      state.polish[action.payload.memberId] = upgrades[2];
+      state.glaze[action.payload.memberId] = upgrades[2];
     },
   },
 });
@@ -105,6 +89,6 @@ export const selectBis = (state) => state.member.bis;
 
 export const selectTwine = (state) => state.member.twine;
 
-export const selectPolish = (state) => state.member.polish;
+export const selectGlaze = (state) => state.member.glaze;
 
 export default memberSlice.reducer;

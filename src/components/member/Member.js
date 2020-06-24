@@ -14,9 +14,9 @@ import {
   selectCurrent,
   selectBis,
   selectTwine,
-  selectPolish,
+  selectGlaze,
 } from "./memberSlice.js";
-import { jobIcons } from "../../assets/index.js";
+import { jobIcons, TWINE, GLAZE } from "../../assets/index.js";
 import MemberEdit from "./MemberEdit.js";
 
 function Member(props) {
@@ -26,7 +26,7 @@ function Member(props) {
   const currentEqList = useSelector(selectCurrent)[props.memberId];
   const bisEqList = useSelector(selectBis)[props.memberId];
   const twine = useSelector(selectTwine)[props.memberId];
-  const polish = useSelector(selectPolish)[props.memberId];
+  const glaze = useSelector(selectGlaze)[props.memberId];
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -58,10 +58,16 @@ function Member(props) {
       </Row>
       <Row>
         <Col>
-          Twine: <Badge variant="primary">{twine}</Badge>
+          <h5>
+            <img width={30} height={30} src={TWINE} alt="twine" /> :{" "}
+            <Badge variant="primary">{twine}</Badge>
+          </h5>
         </Col>
         <Col>
-          Polish: <Badge variant="primary">{polish}</Badge>
+          <h5>
+            <img width={30} height={30} src={GLAZE} alt="glaze" /> :{" "}
+            <Badge variant="primary">{glaze}</Badge>
+          </h5>
         </Col>
       </Row>
       {/*Pop up member edit modal*/}

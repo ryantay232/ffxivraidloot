@@ -93,7 +93,6 @@ function MemberEdit(props) {
                               setCurrentEqState((prevState) => ({
                                 ...prevState,
                                 [keyName]: {
-                                  name: "",
                                   type: item.type,
                                   ilv: item.ilv,
                                 },

@@ -1,4 +1,4 @@
-//jobIcons icons
+// jobIcons icons
 const AST = require("./jobIcons/AST.svg");
 const BLM = require("./jobIcons/BLM.svg");
 const BRD = require("./jobIcons/BRD.svg");
@@ -37,7 +37,7 @@ export const jobIcons = {
   RDM: RDM,
 };
 
-//equipment icons
+// equipment icons
 const BODY = require("./eqIcons/body.svg");
 const BRACELETS = require("./eqIcons/bracelets.svg");
 const EARRINGS = require("./eqIcons/earrings.svg");
@@ -49,6 +49,10 @@ const MAIN_ARM = require("./eqIcons/main_arm.svg");
 const NECKLACE = require("./eqIcons/necklace.svg");
 const RING = require("./eqIcons/ring.svg");
 const WAIST = require("./eqIcons/waist.svg");
+
+// upgrades
+export const TWINE = require("./eqIcons/twine.png");
+export const GLAZE = require("./eqIcons/glaze.png");
 
 export const eqIcons = {
   mainArm: MAIN_ARM,

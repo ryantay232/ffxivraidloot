@@ -39,7 +39,29 @@ export const defaultIlvs = {
   7: defaultIlv,
 };
 
-export const defaultEqStructure = {
+export const defaultTwines = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+};
+
+export const defaultGlazes = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+};
+
+const defaultEqStructure = {
   mainArm: {
     type: defaultEq,
     ilv: defaultIlv,
@@ -113,6 +135,28 @@ export const dummyJobs = {
   5: "NIN",
   6: "DNC",
   7: "SMN",
+};
+
+export const dummyTwines = {
+  0: 3,
+  1: 2,
+  2: 3,
+  3: 2,
+  4: 1,
+  5: 2,
+  6: 2,
+  7: 2,
+};
+
+export const dummyGlazes = {
+  0: 3,
+  1: 3,
+  2: 4,
+  3: 3,
+  4: 3,
+  5: 4,
+  6: 4,
+  7: 3,
 };
 
 export const dummyBis = {
