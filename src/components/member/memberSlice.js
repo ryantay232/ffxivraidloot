@@ -30,7 +30,7 @@ function calculateUpgrades(eqList, bisList) {
       (eq) =>
         bisList[eq].type === "A. Tome" && eqList[eq].type !== bisList[eq].type
     )
-    .map((eq, i) => {
+    .forEach((eq, i) => {
       if (twineEq.includes(eq)) {
         twine++;
       } else if (glazeEq.includes(eq)) {
@@ -38,7 +38,6 @@ function calculateUpgrades(eqList, bisList) {
       } else {
         ester++;
       }
-      return null;
     });
   return [ester, twine, polish];
 }

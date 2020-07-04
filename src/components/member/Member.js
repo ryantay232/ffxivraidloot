@@ -23,14 +23,12 @@ function Member(props) {
   const characterName = useSelector(selectCharacterName)[props.memberId];
   const job = useSelector(selectJob)[props.memberId];
   const ilv = useSelector(selectIlv)[props.memberId];
-  const currentEqList = useSelector(selectCurrent)[props.memberId];
-  const bisEqList = useSelector(selectBis)[props.memberId];
+  const currentEq = useSelector(selectCurrent)[props.memberId];
+  const bisEq = useSelector(selectBis)[props.memberId];
   const twine = useSelector(selectTwine)[props.memberId];
   const glaze = useSelector(selectGlaze)[props.memberId];
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   return (
     <Container fluid className="Member border rounded">
@@ -43,19 +41,20 @@ function Member(props) {
           </h4>
         </Col>
         <Col xs={3}>
-          <Button className="mt-2" variant="secondary" onClick={handleShow}>
+          <Button className="mt-2" variant="secondary" onClick={(() => setShow(true))}>
             Edit
           </Button>
         </Col>
       </Row>
       <Row xs={1} sm={1} md={2}>
         <Col>
-          <Equipment name="Current" list={currentEqList} />
+          <Equipment name="Current" list={currentEq} />
         </Col>
         <Col>
-          <Equipment name="BIS" list={bisEqList} />
+          <Equipment name="BIS" list={bisEq} />
         </Col>
       </Row>
+      Remaining:
       <Row>
         <Col>
           <h5>
@@ -75,10 +74,10 @@ function Member(props) {
         memberId={props.memberId}
         characterName={characterName}
         job={job}
-        currentEqList={currentEqList}
-        bisEqList={bisEqList}
+        currentEq={currentEq}
+        bisEq={bisEq}
         show={show}
-        handleClose={handleClose}
+        handleClose={() => setShow(false)}
       />
     </Container>
   );

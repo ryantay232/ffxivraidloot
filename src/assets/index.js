@@ -54,6 +54,12 @@ const WAIST = require("./eqIcons/waist.svg");
 export const TWINE = require("./eqIcons/twine.png");
 export const GLAZE = require("./eqIcons/glaze.png");
 
+// books
+export const BOOK_1 = require("./eqIcons/book_of_fulmination.png");
+export const BOOK_2 = require("./eqIcons/book_of_furor.png");
+export const BOOK_3 = require("./eqIcons/book_of_iconoclasm.png");
+export const BOOK_4 = require("./eqIcons/book_of_refulgence.png");
+
 export const eqIcons = {
   mainArm: MAIN_ARM,
   head: HEAD,

@@ -12,7 +12,6 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Badge from "react-bootstrap/Badge";
 
 import { setInfo } from "./memberSlice.js";
@@ -24,8 +23,8 @@ function MemberEdit(props) {
 
   const [nameState, setNameState] = useState(props.characterName);
   const [jobState, setJobState] = useState(props.job);
-  const [currentEqState, setCurrentEqState] = useState(props.currentEqList);
-  const [bisEqState, setBisEqState] = useState(props.bisEqList);
+  const [currentEqState, setCurrentEqState] = useState(props.currentEq);
+  const [bisEqState, setBisEqState] = useState(props.bisEq);
 
   return (
     <Modal show={props.show} onHide={props.handleClose}>
@@ -37,31 +36,34 @@ function MemberEdit(props) {
           <Row>
             <InputGroup size="lg">
               <InputGroup.Prepend>
-                <DropdownButton
-                  id="job-select"
-                  title={
+                <Dropdown>
+                  <Dropdown.Toggle id="job-select">
                     <img
                       width={34}
                       height={34}
                       src={jobIcons[jobState]}
                       alt="job"
                     />
-                  }
-                >
-                  {Object.keys(jobIcons).map((keyName, i) => (
-                    <Dropdown.Item onClick={() => setJobState(keyName)} key={i}>
-                      {
-                        <img
-                          width={25}
-                          height={25}
-                          src={jobIcons[keyName]}
-                          alt="job"
-                        />
-                      }{" "}
-                      {keyName}
-                    </Dropdown.Item>
-                  ))}
-                </DropdownButton>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {Object.keys(jobIcons).map((keyName, i) => (
+                      <Dropdown.Item
+                        onClick={() => setJobState(keyName)}
+                        key={i}
+                      >
+                        {
+                          <img
+                            width={25}
+                            height={25}
+                            src={jobIcons[keyName]}
+                            alt="job"
+                          />
+                        }{" "}
+                        {keyName}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
               </InputGroup.Prepend>
               <FormControl
                 defaultValue={nameState}
@@ -157,14 +159,15 @@ function MemberEdit(props) {
           className="mt-1"
           variant="success"
           onClick={() => {
-            const payload = {
-              memberId: props.memberId,
-              name: nameState,
-              job: jobState,
-              current: currentEqState,
-              bis: bisEqState,
-            };
-            dispatch(setInfo(payload));
+            dispatch(
+              setInfo({
+                memberId: props.memberId,
+                name: nameState,
+                job: jobState,
+                current: currentEqState,
+                bis: bisEqState,
+              })
+            );
             props.handleClose();
           }}
         >
