@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 
 import {
+  setEq,
   selectJob,
   selectIlv,
   selectCurrent,
@@ -15,7 +16,7 @@ import {
 import {
   calculateLoot,
   setLoot,
-  selectWeeklyLoot,
+  selectLootTable,
   selectBooks,
 } from "./lootTableSlice.js";
 import { jobIcons, eqIcons, TWINE, GLAZE, BOOK_1 } from "../../assets/index.js";
@@ -49,7 +50,7 @@ function LootTable() {
   const twines = useSelector(selectTwine);
   const glazes = useSelector(selectGlaze);
 
-  const weeklyLoot = useSelector(selectWeeklyLoot);
+  const lootTable = useSelector(selectLootTable);
   const books = useSelector(selectBooks);
 
   return (
@@ -58,6 +59,7 @@ function LootTable() {
         variant="success"
         block
         onClick={() => {
+          dispatch(setEq());
           dispatch(
             calculateLoot({
               ilvs: ilvs,
@@ -98,14 +100,14 @@ function LootTable() {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(weeklyLoot).map((weekNo, i) => (
+          {Object.keys(lootTable).map((weekNo, i) => (
             <tr key={i}>
               <th className="text-right">{weekNo}</th>
-              {Object.keys(weeklyLoot[weekNo]).map((floor, j) =>
-                Object.keys(weeklyLoot[weekNo][floor]).map((loot, j) => (
+              {Object.keys(lootTable[weekNo]).map((floor, j) =>
+                Object.keys(lootTable[weekNo][floor]).map((loot, j) => (
                   <th
                     className={
-                      weeklyLoot[weekNo][floor][loot].set === true
+                      lootTable[weekNo][floor][loot].set === true
                         ? "text-center bg-success"
                         : "text-center"
                     }
@@ -120,13 +122,13 @@ function LootTable() {
                     }}
                     key={j}
                   >
-                    {weeklyLoot[weekNo][floor][loot]["memberId"] > -1 ? (
+                    {lootTable[weekNo][floor][loot]["memberId"] > -1 ? (
                       <img
                         width={32}
                         height={32}
                         src={
                           jobIcons[
-                            jobs[weeklyLoot[weekNo][floor][loot]["memberId"]]
+                            jobs[lootTable[weekNo][floor][loot]["memberId"]]
                           ]
                         }
                         alt="job"

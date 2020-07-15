@@ -71,10 +71,13 @@ export const memberSlice = createSlice({
       state.twine[action.payload.memberId] = upgrades[1];
       state.glaze[action.payload.memberId] = upgrades[2];
     },
+    setEq: (state, action) => {
+      console.log("done");
+    },
   },
 });
 
-export const { setInfo } = memberSlice.actions;
+export const { setInfo, setEq } = memberSlice.actions;
 
 export const selectCharacterName = (state) => state.member.characterName;
 

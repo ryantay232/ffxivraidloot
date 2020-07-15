@@ -6,6 +6,7 @@ import { selectPage } from "./features/navBar/navBarSlice.js";
 import NavBar from "./features/navBar/NavBar";
 import StaticMembers from "./features/staticMembers/StaticMembers";
 import LootTable from "./features/lootTable/LootTable";
+import LootManager from "./features/lootManager/LootManager";
 
 function App() {
   const page = useSelector(selectPage);
@@ -13,7 +14,13 @@ function App() {
   return (
     <Container fluid>
       <NavBar />
-      {page === "StaticMembers" ? <StaticMembers /> : <LootTable />}
+      {page === "StaticMembers" ? (
+        <StaticMembers />
+      ) : page === "LootTable" ? (
+        <LootTable />
+      ) : (
+        <LootManager />
+      )}
     </Container>
   );
 }

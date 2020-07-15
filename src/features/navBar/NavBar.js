@@ -20,6 +20,9 @@ function NavBar() {
           <Nav.Link onClick={() => dispatch(setPage("LootTable"))}>
             Loot Table
           </Nav.Link>
+          <Nav.Link onClick={() => dispatch(setPage("LootManager"))}>
+            Loot Manager
+          </Nav.Link>
         </Nav>
       </Navbar>
     </Container>

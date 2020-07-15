@@ -14,7 +14,7 @@ function shuffle(arr) {
 export const lootTableSlice = createSlice({
   name: "lootTable",
   initialState: {
-    weeklyLoot: {}, // {weekNo: {floor: {loot: {memberId: int, set: bool}}}}
+    lootTable: {}, // {weekNo: {floor: {loot: {memberId: int, set: bool}}}}
     books: {}, // {weekNo: {book: {memberId: {loot: string, set: bool}}}}
     hasSet: false,
     countSet: {}, // {weekNo: {floor: count}}
@@ -131,8 +131,9 @@ export const lootTableSlice = createSlice({
         [4, "mainArm"],
         [4, "body"],
       ];
-      const weeklyLoot = {};
+      const lootTable = {};
       const books = {};
+      const countSet = {};
       let dropObjIsEmpty = false; // check if dropObj arrays are empty
       let weekNo = 1;
 
@@ -207,54 +208,63 @@ export const lootTableSlice = createSlice({
           // 4th floor books?
         }*/
         if (!dropObjIsEmpty) {
-          weeklyLoot[weekNo] = loot;
+          lootTable[weekNo] = loot;
+          countSet[weekNo] = { 1: 0, 2: 0, 3: 0, 4: 0 };
         }
         weekNo++;
       }
-      state.weeklyLoot = weeklyLoot;
+      state.lootTable = lootTable;
+      state.countSet = countSet;
       state.books = books;
-      console.log(weeklyLoot);
+      console.log("weeklyLoot");
+      console.log(lootTable);
+      console.log("countSet");
+      console.log(countSet);
+      console.log("books");
       console.log(books);
     },
     setLoot: (state, action) => {
       const weekNo = action.payload.weekNo;
       const floor = action.payload.floor;
       const loot = action.payload.loot;
-      const obj = state.weeklyLoot[weekNo][floor][loot];
-      if (obj.set === true) {
-        state.countSet[weekNo][floor] = 0;
-        console.log(state.countSet[weekNo][floor]);
+      const lootObj = state.lootTable[weekNo][floor];
+      const count = state.countSet;
+      if (lootObj[loot].set === true) {
+        if (count[weekNo][floor] >= 0) {
+          count[weekNo][floor] -= 1;
+          lootObj[loot].set = !lootObj[loot].set;
+        }
       } else {
-
+        switch (floor) {
+          case "1":
+            if (count[weekNo][floor] < 3) {
+              count[weekNo][floor] += 1;
+              lootObj[loot].set = !lootObj[loot].set;
+            }
+            break;
+          case "2":
+            if (count[weekNo][floor] < 2) {
+              count[weekNo][floor] += 1;
+              lootObj[loot].set = !lootObj[loot].set;
+            }
+            break;
+          case "3":
+            if (count[weekNo][floor] < 2) {
+              count[weekNo][floor] += 1;
+              lootObj[loot].set = !lootObj[loot].set;
+            }
+            break;
+          default:
+        }
+        //console.log(count[weekNo][floor]);
       }
-      /*
-      switch (action.payload.floor) {
-        case "1":
-          if (count < 4) {
-            obj[action.payload.loot].set = !obj[action.payload.loot].set;
-          } else {
-            obj[action.payload.loot].set = false;
-          }
-          break;
-        case "2":
-          if (count < 4) {
-            if ()
-          } else {
-
-          }
-          break;
-        case "3":
-          break;
-        default:
-      }*/
-      obj.set = !obj.set;
     },
   },
 });
 
 export const { calculateLoot, setLoot } = lootTableSlice.actions;
 
-export const selectWeeklyLoot = (state) => state.lootTable.weeklyLoot;
+export const selectLootTable = (state) => state.lootTable.lootTable;
 
 export const selectBooks = (state) => state.lootTable.books;
 
