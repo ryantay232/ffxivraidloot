@@ -1,38 +1,46 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import Member from "../../components/member/Member";
+import Member from "./Member.js";
+import {
+  selectCharacterNames,
+  selectJobs,
+  selectIlvs,
+  selectCurrentList,
+  selectBisList,
+  selectTwineList,
+  selectGlazeList,
+} from "./staticMembersSlice.js";
 
 function StaticMembers() {
+  const characterNames = useSelector(selectCharacterNames);
+  const jobs = useSelector(selectJobs);
+  const ilvs = useSelector(selectIlvs);
+  const currentList = useSelector(selectCurrentList);
+  const bisList = useSelector(selectBisList);
+  const twineList = useSelector(selectTwineList);
+  const glazeList = useSelector(selectGlazeList);
+
   return (
     <Container fluid>
       <Row xs={1} sm={1} md={2} lg={2} xl={4}>
-        <Col className="py-2">
-          <Member memberId="0" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="1" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="2" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="3" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="4" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="5" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="6" />
-        </Col>
-        <Col className="py-2">
-          <Member memberId="7" />
-        </Col>
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((memberId) => (
+          <Col className="py-2">
+            <Member
+              memberId={memberId}
+              characterName={characterNames[memberId]}
+              job={jobs[memberId]}
+              ilv={ilvs[memberId]}
+              current={currentList[memberId]}
+              bis={bisList[memberId]}
+              twine={twineList[memberId]}
+              glaze={glazeList[memberId]}
+            />
+          </Col>
+        ))}
       </Row>
     </Container>
   );

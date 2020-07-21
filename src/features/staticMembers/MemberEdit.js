@@ -14,7 +14,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "react-bootstrap/Badge";
 
-import { setInfo } from "./memberSlice.js";
+import { setInfo } from "./staticMembersSlice.js";
 import { jobIcons, eqIcons } from "../../assets/index.js";
 import eqData from "../../assets/eqData/eqData.json";
 

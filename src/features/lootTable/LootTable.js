@@ -6,13 +6,13 @@ import Table from "react-bootstrap/Table";
 
 import {
   setEq,
-  selectJob,
-  selectIlv,
-  selectCurrent,
-  selectBis,
-  selectTwine,
-  selectGlaze,
-} from "../../components/member/memberSlice.js";
+  selectJobs,
+  selectIlvs,
+  selectCurrentList,
+  selectBisList,
+  selectTwineList,
+  selectGlazeList,
+} from "../staticMembers/staticMembersSlice.js";
 import {
   calculateLoot,
   setLoot,
@@ -43,12 +43,12 @@ function LootTable() {
     eqIcons.body,
   ];
 
-  const jobs = useSelector(selectJob);
-  const ilvs = useSelector(selectIlv);
-  const currentEq = useSelector(selectCurrent);
-  const bisEq = useSelector(selectBis);
-  const twines = useSelector(selectTwine);
-  const glazes = useSelector(selectGlaze);
+  const jobs = useSelector(selectJobs);
+  const ilvs = useSelector(selectIlvs);
+  const currentEq = useSelector(selectCurrentList);
+  const bisEq = useSelector(selectBisList);
+  const twines = useSelector(selectTwineList);
+  const glazes = useSelector(selectGlazeList);
 
   const lootTable = useSelector(selectLootTable);
   const books = useSelector(selectBooks);

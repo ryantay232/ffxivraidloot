@@ -1,8 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
 
-const store =  configureStore({
+import { loadState, saveState } from "./localStorage.js";
+
+const persistedState = loadState();
+const store = configureStore({
   reducer: rootReducer,
+  preloadedState: persistedState,
+});
+
+store.subscribe(() => {
+  saveState(store.getState());
 });
 
 export default store;

@@ -5,6 +5,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
+import LootWeek from "./LootWeek.js";
 import { addWeek, selectWeeklyLoot } from "./lootManagerSlice.js";
 
 function LootManager() {
@@ -20,7 +21,9 @@ function LootManager() {
               Week {i + 1}
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={i}>
-              <Card.Body>set new component here</Card.Body>
+              <Card.Body>
+                <LootWeek weekNo={i} weekData={weeklyLoot[i]} />
+              </Card.Body>
             </Accordion.Collapse>
           </Card>
         ))}

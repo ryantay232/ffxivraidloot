@@ -1,12 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import navBarReducer from "../features/navBar/navBarSlice";
-import memberReducer from "../components/member/memberSlice";
+import staticMembersReducer from "../features/staticMembers/staticMembersSlice";
 import lootTableReducer from "../features/lootTable/lootTableSlice";
 import lootManagerReducer from "../features/lootManager/lootManagerSlice";
 
 const rootReducer = combineReducers({
   navBar: navBarReducer,
-  member: memberReducer,
+  staticMembers: staticMembersReducer,
   lootTable: lootTableReducer,
   lootManager: lootManagerReducer,
 });
