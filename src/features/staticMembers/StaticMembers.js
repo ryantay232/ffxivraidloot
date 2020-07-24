@@ -27,8 +27,8 @@ function StaticMembers() {
   return (
     <Container fluid>
       <Row xs={1} sm={1} md={2} lg={2} xl={4}>
-        {[0, 1, 2, 3, 4, 5, 6, 7].map((memberId) => (
-          <Col className="py-2">
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((memberId, i) => (
+          <Col className="py-2" key={i}>
             <Member
               memberId={memberId}
               characterName={characterNames[memberId]}

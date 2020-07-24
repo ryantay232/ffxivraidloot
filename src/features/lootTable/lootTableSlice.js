@@ -14,6 +14,7 @@ function shuffle(arr) {
 export const lootTableSlice = createSlice({
   name: "lootTable",
   initialState: {
+    dropObj: {},
     lootTable: {}, // {weekNo: {floor: {loot: {memberId: int, set: bool}}}}
     books: {}, // {weekNo: {book: {memberId: {loot: string, set: bool}}}}
     hasSet: false,
@@ -82,6 +83,8 @@ export const lootTableSlice = createSlice({
       // from here should check if theres set in current loot table
       dropObj["twine"] = Object.assign({}, action.payload.twines);
       dropObj["glaze"] = Object.assign({}, action.payload.glazes);
+
+      state.dropObj = dropObj;
 
       //let memberOrder = shuffle(["0", "1", "2", "3", "4", "5", "6", "7"]);
 
@@ -263,6 +266,8 @@ export const lootTableSlice = createSlice({
 });
 
 export const { calculateLoot, setLoot } = lootTableSlice.actions;
+
+export const selectDropObj = (state) => state.lootTable.dropObj;
 
 export const selectLootTable = (state) => state.lootTable.lootTable;
 

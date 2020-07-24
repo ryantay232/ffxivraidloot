@@ -31,7 +31,11 @@ function Member(props) {
           </h4>
         </Col>
         <Col xs={3}>
-          <Button className="mt-2" variant="secondary" onClick={(() => setShow(true))}>
+          <Button
+            className="mt-2"
+            variant="secondary"
+            onClick={() => setShow(true)}
+          >
             Edit
           </Button>
         </Col>

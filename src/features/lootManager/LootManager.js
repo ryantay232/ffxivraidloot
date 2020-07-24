@@ -11,10 +11,11 @@ import { addWeek, selectWeeklyLoot } from "./lootManagerSlice.js";
 function LootManager() {
   const dispatch = useDispatch();
   const weeklyLoot = useSelector(selectWeeklyLoot);
+  const len = Object.keys(weeklyLoot).length;
 
   return (
     <Container fluid>
-      <Accordion>
+      <Accordion defaultActiveKey={len - 1}>
         {weeklyLoot.map((keyName, i) => (
           <Card key={i}>
             <Accordion.Toggle as={Card.Header} eventKey={i}>

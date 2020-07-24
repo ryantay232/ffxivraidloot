@@ -53,6 +53,8 @@ const WAIST = require("./eqIcons/waist.svg");
 // upgrades
 export const TWINE = require("./eqIcons/twine.png");
 export const GLAZE = require("./eqIcons/glaze.png");
+export const ESTER = require("./eqIcons/ester.png");
+export const TOMESTONE = require("./eqIcons/tomestone.png");
 
 // books
 export const BOOK_1 = require("./eqIcons/book_of_fulmination.png");

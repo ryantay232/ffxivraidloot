@@ -37,7 +37,7 @@ function MemberEdit(props) {
             <InputGroup size="lg">
               <InputGroup.Prepend>
                 <Dropdown>
-                  <Dropdown.Toggle id="job-select">
+                  <Dropdown.Toggle variant="light" id="job-select">
                     <img
                       width={34}
                       height={34}

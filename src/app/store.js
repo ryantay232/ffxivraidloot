@@ -10,7 +10,11 @@ const store = configureStore({
 });
 
 store.subscribe(() => {
-  saveState(store.getState());
+  saveState({
+    staticMembers: store.getState().staticMembers,
+    lootTable: store.getState().lootTable,
+    lootManager: store.getState().lootManager,
+  });
 });
 
 export default store;
