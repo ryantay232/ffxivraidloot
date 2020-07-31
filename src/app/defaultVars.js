@@ -124,7 +124,7 @@ export const defaultEqList = {
 };
 
 /**
- * For debugging
+ * Dummy data
  */
 export const dummyJobs = {
   0: "DRK",
@@ -135,6 +135,17 @@ export const dummyJobs = {
   5: "NIN",
   6: "DNC",
   7: "SMN",
+};
+
+export const dummyEsters = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 1,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
 };
 
 export const dummyTwines = {
@@ -157,6 +168,17 @@ export const dummyGlazes = {
   5: 4,
   6: 4,
   7: 3,
+};
+
+export const dummyTomestones = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 1,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
 };
 
 export const dummyBis = {

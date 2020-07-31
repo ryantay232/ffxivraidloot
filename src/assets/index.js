@@ -76,3 +76,21 @@ export const eqIcons = {
   ring1: RING,
   ring2: RING,
 };
+
+export const eqList = {
+  mainArm: MAIN_ARM,
+  head: HEAD,
+  body: BODY,
+  hands: HANDS,
+  waist: WAIST,
+  legs: LEGS,
+  feet: FEET,
+  earrings: EARRINGS,
+  necklace: NECKLACE,
+  bracelets: BRACELETS,
+  ring: RING,
+  twine: TWINE,
+  glaze: GLAZE,
+  ester: ESTER,
+  tomestone: TOMESTONE,
+};

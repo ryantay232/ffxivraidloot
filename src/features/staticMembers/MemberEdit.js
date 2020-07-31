@@ -26,6 +26,19 @@ function MemberEdit(props) {
   const [currentEqState, setCurrentEqState] = useState(props.currentEq);
   const [bisEqState, setBisEqState] = useState(props.bisEq);
 
+  const eqArr = [
+    {
+      title: "Current",
+      state: currentEqState,
+      setter: setCurrentEqState,
+    },
+    {
+      title: "BIS",
+      state: bisEqState,
+      setter: setBisEqState,
+    },
+  ];
+
   return (
     <Modal show={props.show} onHide={props.handleClose}>
       <ModalHeader closeButton>
@@ -37,7 +50,7 @@ function MemberEdit(props) {
             <InputGroup size="lg">
               <InputGroup.Prepend>
                 <Dropdown>
-                  <Dropdown.Toggle variant="light" id="job-select">
+                  <Dropdown.Toggle variant="primary" id="job-select">
                     <img
                       width={34}
                       height={34}
@@ -72,85 +85,62 @@ function MemberEdit(props) {
             </InputGroup>
           </Row>
           <Row>
-            {/*Edit current eq list 
-          -- to be refactored together with bis eq list(?)*/}
-            <Col>
-              <h4>Current</h4>
-              {Object.keys(currentEqState).map((keyName, i) => (
-                <Row key={i}>
-                  <img width={25} height={25} src={eqIcons[keyName]} alt="eq" />
-                  <Dropdown id={keyName} key={i}>
-                    <Dropdown.Toggle variant="primary">
-                      {currentEqState[keyName].type}{" "}
-                      <Badge variant="light">
-                        ilv {currentEqState[keyName].ilv}
-                      </Badge>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      {eqData
-                        .filter((item) => item.eqSlot[keyName] === true)
-                        .map((item, j) => (
-                          <Dropdown.Item
-                            onClick={() => {
-                              setCurrentEqState((prevState) => ({
-                                ...prevState,
-                                [keyName]: {
-                                  type: item.type,
-                                  ilv: item.ilv,
-                                },
-                              }));
-                            }}
-                            key={j}
-                          >
-                            {item.type}{" "}
-                            <Badge variant="primary">ilv {item.ilv}</Badge>
-                          </Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Row>
-              ))}
-            </Col>
-            {/*Edit BIS eq list
-          -- to be refactored together with current eq list(?)*/}
-            <Col>
-              <h4>BIS</h4>
-              {Object.keys(bisEqState).map((keyName, i) => (
-                <Row key={i}>
-                  <img width={25} height={25} src={eqIcons[keyName]} alt="eq" />
-                  <Dropdown id={keyName} key={i}>
-                    <Dropdown.Toggle variant="primary">
-                      {bisEqState[keyName].type}{" "}
-                      <Badge variant="light">
-                        ilv {bisEqState[keyName].ilv}
-                      </Badge>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      {eqData
-                        .filter((item) => item.eqSlot[keyName] === true)
-                        .map((item, j) => (
-                          <Dropdown.Item
-                            onClick={() => {
-                              setBisEqState((prevState) => ({
-                                ...prevState,
-                                [keyName]: {
-                                  name: "",
-                                  type: item.type,
-                                  ilv: item.ilv,
-                                },
-                              }));
-                            }}
-                            key={j}
-                          >
-                            {item.type}{" "}
-                            <Badge variant="primary">ilv {item.ilv}</Badge>
-                          </Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Row>
-              ))}
-            </Col>
+            {eqArr.map((eq, n) => {
+              const title = eq.title;
+              const state = eq.state;
+              const setter = eq.setter;
+
+              return (
+                <Col key={n}>
+                  <h4>{title}</h4>
+                  {Object.keys(state).map((keyName, i) => (
+                    <Row key={i}>
+                      <InputGroup>
+                        <InputGroup.Text>
+                          <img
+                            width={25}
+                            height={25}
+                            src={eqIcons[keyName]}
+                            alt="eq"
+                          />
+                        </InputGroup.Text>
+                        <Dropdown id={keyName} key={i}>
+                          <Dropdown.Toggle variant="primary">
+                            {state[keyName].type}{" "}
+                            <Badge variant="light">
+                              ilv {state[keyName].ilv}
+                            </Badge>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            {eqData
+                              .filter((item) => item.eqSlot[keyName] === true)
+                              .map((item, j) => (
+                                <Dropdown.Item
+                                  onClick={() => {
+                                    setter((prevState) => ({
+                                      ...prevState,
+                                      [keyName]: {
+                                        type: item.type,
+                                        ilv: item.ilv,
+                                      },
+                                    }));
+                                  }}
+                                  key={j}
+                                >
+                                  {item.type}{" "}
+                                  <Badge variant="primary">
+                                    ilv {item.ilv}
+                                  </Badge>
+                                </Dropdown.Item>
+                              ))}
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </InputGroup>
+                    </Row>
+                  ))}
+                </Col>
+              );
+            })}
           </Row>
         </Container>
       </ModalBody>

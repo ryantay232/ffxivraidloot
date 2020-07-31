@@ -10,8 +10,10 @@ import {
   selectIlvs,
   selectCurrentList,
   selectBisList,
+  selectEsterList,
   selectTwineList,
   selectGlazeList,
+  selectTomestoneList,
 } from "../staticMembers/staticMembersSlice.js";
 import {
   calculateLoot,
@@ -19,36 +21,48 @@ import {
   selectLootTable,
   selectBooks,
 } from "./lootTableSlice.js";
-import { jobIcons, eqIcons, TWINE, GLAZE, BOOK_1 } from "../../assets/index.js";
+import {
+  jobIcons,
+  eqList,
+  TWINE,
+  GLAZE,
+  TOMESTONE,
+  ESTER,
+  BOOK_1,
+} from "../../assets/index.js";
 
 function LootTable() {
   const dispatch = useDispatch();
 
   const eqDrops = [
-    eqIcons.waist,
-    eqIcons.earrings,
-    eqIcons.necklace,
-    eqIcons.bracelets,
-    eqIcons.ring1,
-    eqIcons.head,
-    eqIcons.hands,
-    eqIcons.feet,
+    eqList.waist,
+    eqList.earrings,
+    eqList.necklace,
+    eqList.bracelets,
+    eqList.ring,
+    eqList.head,
+    eqList.hands,
+    eqList.feet,
     GLAZE,
-    eqIcons.head,
-    eqIcons.hands,
-    eqIcons.feet,
-    eqIcons.legs,
+    TOMESTONE,
+    eqList.head,
+    eqList.hands,
+    eqList.feet,
+    eqList.legs,
     TWINE,
-    eqIcons.mainArm,
-    eqIcons.body,
+    ESTER,
+    eqList.mainArm,
+    eqList.body,
   ];
 
   const jobs = useSelector(selectJobs);
   const ilvs = useSelector(selectIlvs);
   const currentEq = useSelector(selectCurrentList);
   const bisEq = useSelector(selectBisList);
+  const esters = useSelector(selectEsterList);
   const twines = useSelector(selectTwineList);
   const glazes = useSelector(selectGlazeList);
+  const tomestones = useSelector(selectTomestoneList);
 
   const lootTable = useSelector(selectLootTable);
   const books = useSelector(selectBooks);
@@ -65,8 +79,10 @@ function LootTable() {
               ilvs: ilvs,
               currentEq: currentEq,
               bisEq: bisEq,
+              esters: esters,
               twines: twines,
               glazes: glazes,
+              tomestones: tomestones,
             })
           );
         }}
@@ -81,10 +97,10 @@ function LootTable() {
             <th colSpan="5" className="text-center">
               1st Floor
             </th>
-            <th colSpan="4" className="text-center">
+            <th colSpan="5" className="text-center">
               2nd Floor
             </th>
-            <th colSpan="5" className="text-center">
+            <th colSpan="6" className="text-center">
               3rd Floor
             </th>
             <th colSpan="2" className="text-center">
@@ -175,11 +191,7 @@ function LootTable() {
                     <img
                       width={32}
                       height={32}
-                      src={
-                        books[weekNo][1][mem] === "ring"
-                          ? eqIcons.ring1
-                          : eqIcons[books[weekNo][1][mem]]
-                      }
+                      src={eqList[books[weekNo][1][mem]]}
                       alt="job"
                     />
                   ) : (

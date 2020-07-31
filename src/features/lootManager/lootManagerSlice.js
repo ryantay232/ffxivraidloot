@@ -11,65 +11,66 @@ export const lootManagerSlice = createSlice({
         floor1: {
           1: {
             loot: "",
-            member: "",
+            memberId: "",
           },
           2: {
             loot: "",
-            member: "",
+            memberId: "",
           },
           3: {
             loot: "",
-            member: "",
+            memberId: "",
           },
         },
         floor2: {
           1: {
             loot: "",
-            member: "",
+            memberId: "",
           },
           2: {
             loot: "",
-            member: "",
+            memberId: "",
           },
           3: {
             loot: "glaze",
-            member: "",
+            memberId: "",
           },
           4: {
             loot: "tomestone",
-            member: "",
+            memberId: "",
           },
         },
         floor3: {
           1: {
             loot: "",
-            member: "",
+            memberId: "",
           },
           2: {
             loot: "",
-            member: "",
+            memberId: "",
           },
           3: {
             loot: "twine",
-            member: "",
+            memberId: "",
           },
           4: {
             loot: "ester",
-            member: "",
+            memberId: "",
           },
         },
         floor4: {
           1: {
             loot: "mainArm",
-            member: "",
+            memberId: "",
           },
           2: {
             loot: "body",
-            member: "",
+            memberId: "",
           },
           3: {
-            loot: "",
-            member: "",
+            loot: "randomWeapon",
+            job: "AST",
+            memberId: "",
           },
         },
         tomeExchange: [],
@@ -80,7 +81,9 @@ export const lootManagerSlice = createSlice({
     deleteWeek: (state, action) => {
       state.weeklyLoot.splice(action.payload.weekNo, 1);
     },
-    editWeek: (state, action) => {},
+    editWeek: (state, action) => {
+      state.weeklyLoot[action.payload.weekNo] = action.payload.weekData;
+    },
   },
 });
 

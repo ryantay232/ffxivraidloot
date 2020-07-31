@@ -7,8 +7,10 @@ import {
   defaultEqList,
   dummyBis,
   dummyJobs,
+  dummyEsters,
   dummyTwines,
   dummyGlazes,
+  dummyTomestones,
 } from "../../app/defaultVars.js";
 
 const twineEq = ["head", "body", "hands", "legs", "feet"];
@@ -23,6 +25,7 @@ const glazeEq = [
 
 function calculateUpgrades(eqList, bisList) {
   let ester = 0;
+  let tomestone = 0;
   let twine = 0;
   let polish = 0;
   Object.keys(bisList)
@@ -37,9 +40,10 @@ function calculateUpgrades(eqList, bisList) {
         polish++;
       } else {
         ester++;
+        tomestone++;
       }
     });
-  return [ester, twine, polish];
+  return [ester, twine, polish, tomestone];
 }
 
 export const staticMembersSlice = createSlice({
@@ -50,8 +54,10 @@ export const staticMembersSlice = createSlice({
     ilvs: defaultIlvs,
     currentList: defaultEqList,
     bisList: dummyBis,
+    esterList: dummyEsters,
     twineList: dummyTwines,
     glazeList: dummyGlazes,
+    tomestoneList: dummyTomestones,
   },
   reducers: {
     setInfo: (state, action) => {
@@ -68,8 +74,10 @@ export const staticMembersSlice = createSlice({
         action.payload.current,
         action.payload.bis
       );
+      state.esterList[action.payload.memberId] = upgrades[0];
       state.twineList[action.payload.memberId] = upgrades[1];
       state.glazeList[action.payload.memberId] = upgrades[2];
+      state.tomestoneList[action.payload.memberId] = upgrades[3];
     },
     setEq: (state, action) => {
       console.log("done");
@@ -79,7 +87,8 @@ export const staticMembersSlice = createSlice({
 
 export const { setInfo, setEq } = staticMembersSlice.actions;
 
-export const selectCharacterNames = (state) => state.staticMembers.characterNames;
+export const selectCharacterNames = (state) =>
+  state.staticMembers.characterNames;
 
 export const selectJobs = (state) => state.staticMembers.jobs;
 
@@ -89,8 +98,12 @@ export const selectCurrentList = (state) => state.staticMembers.currentList;
 
 export const selectBisList = (state) => state.staticMembers.bisList;
 
+export const selectEsterList = (state) => state.staticMembers.esterList;
+
 export const selectTwineList = (state) => state.staticMembers.twineList;
 
 export const selectGlazeList = (state) => state.staticMembers.glazeList;
+
+export const selectTomestoneList = (state) => state.staticMembers.tomestoneList;
 
 export default staticMembersSlice.reducer;

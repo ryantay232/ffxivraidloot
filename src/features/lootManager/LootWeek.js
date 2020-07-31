@@ -4,9 +4,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
 import { jobIcons, eqIcons, TWINE, GLAZE } from "../../assets/index.js";
@@ -16,84 +13,13 @@ import LootWeekEdit from "./LootWeekEdit.js";
 function LootWeek(props) {
   const dispatch = useDispatch();
 
-  const lootStructure = {
-    1: {
-      1: {
-        loot: "",
-        member: "",
-      },
-      2: {
-        loot: "",
-        member: "",
-      },
-      3: {
-        loot: "",
-        member: "",
-      },
-    },
-    2: {
-      1: {
-        loot: "",
-        member: "",
-      },
-      2: {
-        loot: "",
-        member: "",
-      },
-      3: {
-        loot: "glaze",
-        member: "",
-      },
-      4: {
-        loot: "tomestone",
-        member: "",
-      },
-    },
-    3: {
-      1: {
-        loot: "",
-        member: "",
-      },
-      2: {
-        loot: "",
-        member: "",
-      },
-      3: {
-        loot: "twine",
-        member: "",
-      },
-      4: {
-        loot: "ester",
-        member: "",
-      },
-    },
-    4: {
-      1: {
-        loot: "mainArm",
-        member: "",
-      },
-      2: {
-        loot: "body",
-        member: "",
-      },
-      3: {
-        loot: "",
-        member: "",
-      },
-    },
-  }; // {floor: drop: {loot: string, member: string}}
-
-  const floor1Drops = ["waist", "earrings", "necklace", "bracelets", "ring1"];
-  const floor2Drops = ["head", "hands", "feet"];
-  const floor3Drops = ["head", "hands", "feet", "legs"];
-  const [floor1State, setFloor1State] = useState(lootStructure[1]);
-
   const [show, setShow] = useState(false);
 
   console.log(props.weekData);
+
   return (
     <Container fluid>
-      <Row xs={1} sm={1} md={2} lg={2} xl={4}>
+      <Row xs={1} sm={1} md={1} lg={2}>
         <Col>
           <Card>
             <Card.Body>

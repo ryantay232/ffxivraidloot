@@ -16,14 +16,14 @@ function LootManager() {
   return (
     <Container fluid>
       <Accordion defaultActiveKey={len - 1}>
-        {weeklyLoot.map((keyName, i) => (
+        {weeklyLoot.map((week, i) => (
           <Card key={i}>
             <Accordion.Toggle as={Card.Header} eventKey={i}>
               Week {i + 1}
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={i}>
               <Card.Body>
-                <LootWeek weekNo={i} weekData={weeklyLoot[i]} />
+                <LootWeek weekNo={i} weekData={week} />
               </Card.Body>
             </Accordion.Collapse>
           </Card>

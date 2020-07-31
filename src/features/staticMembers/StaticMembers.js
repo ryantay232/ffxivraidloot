@@ -11,6 +11,7 @@ import {
   selectIlvs,
   selectCurrentList,
   selectBisList,
+  selectEsterList,
   selectTwineList,
   selectGlazeList,
 } from "./staticMembersSlice.js";
@@ -21,6 +22,7 @@ function StaticMembers() {
   const ilvs = useSelector(selectIlvs);
   const currentList = useSelector(selectCurrentList);
   const bisList = useSelector(selectBisList);
+  const esterList = useSelector(selectEsterList);
   const twineList = useSelector(selectTwineList);
   const glazeList = useSelector(selectGlazeList);
 
@@ -36,6 +38,7 @@ function StaticMembers() {
               ilv={ilvs[memberId]}
               current={currentList[memberId]}
               bis={bisList[memberId]}
+              ester={esterList[memberId]}
               twine={twineList[memberId]}
               glaze={glazeList[memberId]}
             />

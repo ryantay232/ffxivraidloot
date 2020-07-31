@@ -36,6 +36,8 @@ export const lootTableSlice = createSlice({
         ring: {},
         glaze: {},
         twine: {},
+        tomestone: {},
+        ester: {},
       };
       /* *
        * take everyone who has a tome gear the glaze/twine list on dropObj and randomise
@@ -81,9 +83,10 @@ export const lootTableSlice = createSlice({
       });
 
       // from here should check if theres set in current loot table
+      dropObj["ester"] = Object.assign({}, action.payload.esters);
       dropObj["twine"] = Object.assign({}, action.payload.twines);
       dropObj["glaze"] = Object.assign({}, action.payload.glazes);
-
+      dropObj["tomestone"] = Object.assign({}, action.payload.tomestones);
       state.dropObj = dropObj;
 
       //let memberOrder = shuffle(["0", "1", "2", "3", "4", "5", "6", "7"]);
@@ -93,6 +96,12 @@ export const lootTableSlice = createSlice({
       )
         .sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0))
         .map((mem) => mem[0]);
+      let esterOrder = shuffle(
+        Object.keys(dropObj["ester"]).map((key) => [key, dropObj["ester"][key]])
+      )
+        .sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0))
+        .map((mem) => mem[0]);
+      let tomestoneOrder = esterOrder;
       let twineOrder = shuffle(
         Object.keys(dropObj["twine"]).map((key) => [key, dropObj["twine"][key]])
       )
@@ -105,6 +114,8 @@ export const lootTableSlice = createSlice({
         .map((mem) => mem[0]);
       const order = {
         member: memberOrder,
+        tomestone: tomestoneOrder,
+        ester: esterOrder,
         twine: twineOrder,
         glaze: glazeOrder,
       };
@@ -126,11 +137,13 @@ export const lootTableSlice = createSlice({
         [2, "hands"],
         [2, "feet"],
         [2, "glaze"],
+        [2, "tomestone"],
         [3, "head"],
         [3, "hands"],
         [3, "feet"],
         [3, "legs"],
         [3, "twine"],
+        [3, "ester"],
         [4, "mainArm"],
         [4, "body"],
       ];
@@ -153,7 +166,11 @@ export const lootTableSlice = createSlice({
         // eslint-disable-next-line no-loop-func
         drops.forEach((drop) => {
           const o =
-            drop[1] === "twine"
+            drop[1] === "tomestone"
+              ? "tomestone"
+              : drop[1] === "ester"
+              ? "ester"
+              : drop[1] === "twine"
               ? "twine"
               : drop[1] === "glaze"
               ? "glaze"

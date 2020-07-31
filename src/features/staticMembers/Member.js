@@ -6,7 +6,7 @@ import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
 
 import Equipment from "../../components/equipment/Equipment.js";
-import { jobIcons, TWINE, GLAZE } from "../../assets/index.js";
+import { jobIcons, TWINE, GLAZE, ESTER } from "../../assets/index.js";
 import MemberEdit from "./MemberEdit.js";
 
 function Member(props) {
@@ -15,6 +15,7 @@ function Member(props) {
   const ilv = props.ilv;
   const current = props.current;
   const bis = props.bis;
+  const ester = props.ester;
   const twine = props.twine;
   const glaze = props.glaze;
 
@@ -48,7 +49,7 @@ function Member(props) {
           <Equipment name="BIS" list={bis} />
         </Col>
       </Row>
-      Remaining:
+      Upgrades remaining:
       <Row>
         <Col>
           <h5>
@@ -60,6 +61,12 @@ function Member(props) {
           <h5>
             <img width={30} height={30} src={GLAZE} alt="glaze" /> :{" "}
             <Badge variant="primary">{glaze}</Badge>
+          </h5>
+        </Col>
+        <Col>
+          <h5>
+            <img width={30} height={30} src={ESTER} alt="twine" /> :{" "}
+            <Badge variant="primary">{ester}</Badge>
           </h5>
         </Col>
       </Row>
