@@ -54,6 +54,7 @@ function LootWeekEdit(props) {
       </ModalHeader>
       <ModalBody>
         <Row xs={1} sm={1} md={1} lg={2}>
+          {/*floor drops cards*/}
           {floorArr.map((floor, n) => {
             const title = floor.title;
             const state = floor.state;
@@ -302,6 +303,7 @@ function LootWeekEdit(props) {
               </Col>
             );
           })}
+          {/*exchange cards*/}
           {exchangeArr.map((exchange, n) => {
             const title = exchange.title;
             const state = exchange.state;
@@ -461,7 +463,16 @@ function LootWeekEdit(props) {
                 },
               })
             );
-            dispatch(setEq()); //to dispatch to staticMemberSlice.js
+            dispatch(setEq({
+              weekData: {
+                  floor1: floorArr[0].state,
+                  floor2: floorArr[1].state,
+                  floor3: floorArr[2].state,
+                  floor4: floorArr[3].state,
+                  tomeExchange: exchangeArr[0].state,
+                  bookExchange: exchangeArr[1].state,
+                },
+            })); //to dispatch to staticMemberSlice.js
             props.handleClose();
           }}
         >
