@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
@@ -14,74 +14,38 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 
 import { jobIcons, eqList } from "../../assets/index.js";
-import { selectJobs } from "../staticMembers/staticMembersSlice.js";
 import { selectLootTable } from "../lootTable/lootTableSlice.js";
 import { editWeek } from "./lootManagerSlice.js";
+import {
+  selectEsterList,
+  selectTwineList,
+  selectGlazeList,
+  selectTomestoneList,
+  setEq,
+} from "../staticMembers/staticMembersSlice.js";
 
 function LootWeekEdit(props) {
   const dispatch = useDispatch();
 
-  const jobs = useSelector(selectJobs);
   const lootTable = useSelector(selectLootTable);
+  const esterList = useSelector(selectEsterList);
+  const twineList = useSelector(selectTwineList);
+  const glazeList = useSelector(selectGlazeList);
+  const tomestoneList = useSelector(selectTomestoneList);
 
-  const [floor1State, setFloor1State] = useState(props.weekData["floor1"]);
-  const [floor2State, setFloor2State] = useState(props.weekData["floor2"]);
-  const [floor3State, setFloor3State] = useState(props.weekData["floor3"]);
-  const [floor4State, setFloor4State] = useState(props.weekData["floor4"]);
-  const [tomeExState, setTomeExState] = useState(
-    props.weekData["tomeExchange"]
-  );
-  const [bookExState, setBookExState] = useState(
-    props.weekData["bookExchange"]
-  );
+  const upgradesObj = {
+    ester: esterList,
+    twine: twineList,
+    glaze: glazeList,
+    tomestone: tomestoneList,
+  };
 
-  const floor1Drops = ["waist", "earrings", "necklace", "bracelets", "ring"];
-  const floor2Drops = ["head", "hands", "feet"];
-  const floor3Drops = ["head", "hands", "feet", "legs"];
-  const floor4Drops = ["mainArm", "body"];
+  const jobs = props.jobs;
+  const floorArr = props.floorArr;
+  const exchangeArr = props.exchangeArr;
 
-  const floorArr = [
-    {
-      title: "1st Floor",
-      state: floor1State,
-      setter: setFloor1State,
-      drops: floor1Drops,
-    },
-    {
-      title: "2nd Floor",
-      state: floor2State,
-      setter: setFloor2State,
-      drops: floor2Drops,
-    },
-    {
-      title: "3rd Floor",
-      state: floor3State,
-      setter: setFloor3State,
-      drops: floor3Drops,
-    },
-    {
-      title: "4th Floor",
-      state: floor4State,
-      setter: setFloor4State,
-      drops: floor4Drops,
-    },
-  ];
-  const exchangeArr = [
-    {
-      title: "Tome Exchanges",
-      state: tomeExState,
-      setter: setTomeExState,
-    },
-    {
-      title: "Book Exchanges",
-      state: bookExState,
-      setter: setBookExState,
-    },
-  ];
-
-  //console.log(lootTable);
-  //console.log(floor2State);
-  //console.log(dropObj);
+  console.log(props.weekData);
+  console.log(upgradesObj);
 
   return (
     <Modal size="lg" show={props.show} onHide={props.handleClose}>
@@ -110,7 +74,7 @@ function LootWeekEdit(props) {
                                 width={25}
                                 height={25}
                                 src={eqList["mainArm"]}
-                                alt="eq"
+                                alt="mainArm"
                               />
                             </InputGroup.Text>
                           ) : (
@@ -138,14 +102,14 @@ function LootWeekEdit(props) {
                                   width={25}
                                   height={25}
                                   src={jobIcons[state[dropNo].job]}
-                                  alt="job"
+                                  alt={state[dropNo].job}
                                 />
                               ) : (
                                 <img
                                   width={25}
                                   height={25}
                                   src={eqList[state[dropNo].loot]}
-                                  alt="eq"
+                                  alt={state[dropNo].loot}
                                 />
                               )
                             }
@@ -169,7 +133,7 @@ function LootWeekEdit(props) {
                                       width={25}
                                       height={25}
                                       src={jobIcons[job]}
-                                      alt="eq"
+                                      alt={job}
                                     />
                                   </Dropdown.Item>
                                 ))
@@ -190,7 +154,7 @@ function LootWeekEdit(props) {
                                       width={25}
                                       height={25}
                                       src={eqList[drop]}
-                                      alt="eq"
+                                      alt={drop}
                                     />
                                   </Dropdown.Item>
                                 ))}
@@ -207,7 +171,7 @@ function LootWeekEdit(props) {
                                   width={25}
                                   height={25}
                                   src={jobIcons[jobs[state[dropNo].memberId]]}
-                                  alt="eq"
+                                  alt={jobs[state[dropNo].memberId]}
                                 />
                               )
                             }
@@ -233,10 +197,56 @@ function LootWeekEdit(props) {
                                     width={25}
                                     height={25}
                                     src={jobIcons[jobs[memberId]]}
-                                    alt="member job"
+                                    alt={jobs[memberId]}
                                   />
                                 </Dropdown.Item>
                               ))
+                            ) : state[dropNo].loot === "glaze" ||
+                              state[dropNo].loot === "tomestone" ||
+                              state[dropNo].loot === "twine" ||
+                              state[dropNo].loot === "ester" ? (
+                              Object.keys(upgradesObj[state[dropNo].loot])
+                                .map((memberId) => [
+                                  memberId,
+                                  upgradesObj[state[dropNo].loot][memberId],
+                                ])
+                                .sort((a, b) =>
+                                  a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0
+                                )
+                                .map((mem, j) => (
+                                  <Dropdown.Item
+                                    onClick={() =>
+                                      setter((prevState) => ({
+                                        ...prevState,
+                                        [dropNo]: {
+                                          ...prevState[dropNo],
+                                          memberId: mem[0],
+                                        },
+                                      }))
+                                    }
+                                    key={j}
+                                  >
+                                    <Row>
+                                      <Col>
+                                        <img
+                                          width={25}
+                                          height={25}
+                                          src={jobIcons[jobs[mem[0]]]}
+                                          alt={jobs[mem[0]]}
+                                        />
+                                      </Col>
+                                      <Col>
+                                        {mem[1]}{" "}
+                                        <img
+                                          width={25}
+                                          height={25}
+                                          src={eqList[state[dropNo].loot]}
+                                          alt={state[dropNo].loot}
+                                        />
+                                      </Col>
+                                    </Row>
+                                  </Dropdown.Item>
+                                ))
                             ) : (
                               Object.keys(lootTable)
                                 .filter(
@@ -272,7 +282,13 @@ function LootWeekEdit(props) {
                                           ]
                                         ]
                                       }
-                                      alt="member job"
+                                      alt={
+                                        jobs[
+                                          lootTable[week][n + 1][
+                                            state[dropNo].loot
+                                          ].memberId
+                                        ]
+                                      }
                                     />
                                   </Dropdown.Item>
                                 ))
@@ -290,6 +306,7 @@ function LootWeekEdit(props) {
             const title = exchange.title;
             const state = exchange.state;
             const setter = exchange.setter;
+            const items = exchange.items;
 
             return (
               <Col key={n}>
@@ -302,21 +319,106 @@ function LootWeekEdit(props) {
                           <DropdownButton
                             as={InputGroup.Prepend}
                             variant="outline-secondary"
-                          ></DropdownButton>
+                            title={
+                              ex.item === "" ? (
+                                "Item"
+                              ) : (
+                                <img
+                                  width={25}
+                                  height={25}
+                                  src={eqList[ex.item]}
+                                  alt="item"
+                                />
+                              )
+                            }
+                          >
+                            {items.map((item, j) => (
+                              <Dropdown.Item
+                                onClick={() =>
+                                  setter((prevState) => [
+                                    ...prevState.slice(0, i),
+                                    {
+                                      memberId: ex.memberId,
+                                      item: item.item,
+                                    },
+                                    ...prevState.slice(i + 1),
+                                  ])
+                                }
+                                key={j}
+                              >
+                                <Row>
+                                  <Col>
+                                    <img
+                                      width={25}
+                                      height={25}
+                                      src={eqList[item.item]}
+                                      alt="item"
+                                    />
+                                  </Col>
+                                  <Col>
+                                    {item.cost}{" "}
+                                    <img
+                                      width={25}
+                                      height={25}
+                                      src={eqList[item.currency]}
+                                      alt="currency"
+                                    />
+                                  </Col>
+                                </Row>
+                              </Dropdown.Item>
+                            ))}
+                          </DropdownButton>
                           <DropdownButton
                             as={InputGroup.Append}
-                          ></DropdownButton>
-                          <Button
-                            onClick={() =>
-                              setter((prevState) => [
-                                ...prevState.slice(0, i),
-                                ...prevState.slice(i + 1),
-                              ])
+                            title={
+                              ex.memberId === "" ? (
+                                "Member"
+                              ) : (
+                                <img
+                                  width={25}
+                                  height={25}
+                                  src={jobIcons[jobs[ex.memberId]]}
+                                  alt={jobs[ex.memberId]}
+                                />
+                              )
                             }
-                            variant="danger"
                           >
-                            ✕
-                          </Button>
+                            {Object.keys(jobs).map((memberId, j) => (
+                              <Dropdown.Item
+                                onClick={() =>
+                                  setter((prevState) => [
+                                    ...prevState.slice(0, i),
+                                    {
+                                      memberId: memberId,
+                                      item: ex.item,
+                                    },
+                                    ...prevState.slice(i + 1),
+                                  ])
+                                }
+                                key={j}
+                              >
+                                <img
+                                  width={25}
+                                  height={25}
+                                  src={jobIcons[jobs[memberId]]}
+                                  alt={jobs[memberId]}
+                                />
+                              </Dropdown.Item>
+                            ))}
+                          </DropdownButton>
+                          <InputGroup.Append>
+                            <Button
+                              onClick={() =>
+                                setter((prevState) => [
+                                  ...prevState.slice(0, i),
+                                  ...prevState.slice(i + 1),
+                                ])
+                              }
+                              variant="danger"
+                            >
+                              ✕
+                            </Button>
+                          </InputGroup.Append>
                         </InputGroup>
                       ))}
                       <Button
@@ -325,7 +427,7 @@ function LootWeekEdit(props) {
                             ...prevState,
                             {
                               memberId: "",
-                              eq: "",
+                              item: "",
                             },
                           ])
                         }
@@ -350,16 +452,16 @@ function LootWeekEdit(props) {
               editWeek({
                 weekNo: props.weekNo,
                 weekData: {
-                  floor1: floor1State,
-                  floor2: floor2State,
-                  floor3: floor3State,
-                  floor4: floor4State,
-                  tomeExchange: tomeExState,
-                  bookExchange: bookExState,
+                  floor1: floorArr[0].state,
+                  floor2: floorArr[1].state,
+                  floor3: floorArr[2].state,
+                  floor4: floorArr[3].state,
+                  tomeExchange: exchangeArr[0].state,
+                  bookExchange: exchangeArr[1].state,
                 },
               })
             );
-            //dispatch();   to dispatch to staticMemberSlice.js
+            dispatch(setEq()); //to dispatch to staticMemberSlice.js
             props.handleClose();
           }}
         >
