@@ -44,8 +44,8 @@ function LootWeekEdit(props) {
   const floorArr = props.floorArr;
   const exchangeArr = props.exchangeArr;
 
-  //console.log(props.weekData);
-  //console.log(upgradesObj);
+  console.log(props.weekData);
+  console.log(upgradesObj);
 
   return (
     <Modal size="lg" show={props.show} onHide={props.handleClose}>
@@ -69,6 +69,18 @@ function LootWeekEdit(props) {
                     <Card.Text>
                       {Object.keys(state).map((dropNo, i) => (
                         <InputGroup key={i}>
+                          {n === 3 && i === 2 ? (
+                            <InputGroup.Text>
+                              <img
+                                width={25}
+                                height={25}
+                                src={eqList["mainArm"]}
+                                alt="mainArm"
+                              />
+                            </InputGroup.Text>
+                          ) : (
+                            <></>
+                          )}
                           {/* eq */}
                           <DropdownButton
                             disabled={
@@ -451,9 +463,8 @@ function LootWeekEdit(props) {
                 },
               })
             );
-            dispatch(
-              setEq({
-                weekData: {
+            dispatch(setEq({
+              weekData: {
                   floor1: floorArr[0].state,
                   floor2: floorArr[1].state,
                   floor3: floorArr[2].state,
@@ -461,9 +472,7 @@ function LootWeekEdit(props) {
                   tomeExchange: exchangeArr[0].state,
                   bookExchange: exchangeArr[1].state,
                 },
-              })
-            ); //to dispatch to staticMemberSlice.js
-            //dispatch(); to dispatch to lootTableSlice.js
+            })); //to dispatch to staticMemberSlice.js
             props.handleClose();
           }}
         >

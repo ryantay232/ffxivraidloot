@@ -12,7 +12,6 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 import Badge from "react-bootstrap/Badge";
 
 import { setInfo } from "./staticMembersSlice.js";
@@ -105,38 +104,37 @@ function MemberEdit(props) {
                             alt="eq"
                           />
                         </InputGroup.Text>
-                        <DropdownButton
-                          as={InputGroup.Append}
-                          variant="primary"
-                          title={
-                            <>
-                              {state[keyName].type}{" "}
-                              <Badge variant="light">
-                                ilv {state[keyName].ilv}
-                              </Badge>
-                            </>
-                          }
-                        >
-                          {eqData
-                            .filter((item) => item.eqSlot[keyName] === true)
-                            .map((item, j) => (
-                              <Dropdown.Item
-                                onClick={() => {
-                                  setter((prevState) => ({
-                                    ...prevState,
-                                    [keyName]: {
-                                      type: item.type,
-                                      ilv: item.ilv,
-                                    },
-                                  }));
-                                }}
-                                key={j}
-                              >
-                                {item.type}{" "}
-                                <Badge variant="primary">ilv {item.ilv}</Badge>
-                              </Dropdown.Item>
-                            ))}
-                        </DropdownButton>
+                        <Dropdown id={keyName} key={i}>
+                          <Dropdown.Toggle variant="primary">
+                            {state[keyName].type}{" "}
+                            <Badge variant="light">
+                              ilv {state[keyName].ilv}
+                            </Badge>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            {eqData
+                              .filter((item) => item.eqSlot[keyName] === true)
+                              .map((item, j) => (
+                                <Dropdown.Item
+                                  onClick={() => {
+                                    setter((prevState) => ({
+                                      ...prevState,
+                                      [keyName]: {
+                                        type: item.type,
+                                        ilv: item.ilv,
+                                      },
+                                    }));
+                                  }}
+                                  key={j}
+                                >
+                                  {item.type}{" "}
+                                  <Badge variant="primary">
+                                    ilv {item.ilv}
+                                  </Badge>
+                                </Dropdown.Item>
+                              ))}
+                          </Dropdown.Menu>
+                        </Dropdown>
                       </InputGroup>
                     </Row>
                   ))}
