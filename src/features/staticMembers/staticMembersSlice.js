@@ -33,7 +33,7 @@ function calculateUpgrades(eqList, bisList) {
       (eq) =>
         bisList[eq].type === "A. Tome" && eqList[eq].type !== bisList[eq].type
     )
-    .forEach((eq, i) => {
+    .forEach((eq) => {
       if (twineEq.includes(eq)) {
         twine++;
       } else if (glazeEq.includes(eq)) {
@@ -54,6 +54,7 @@ export const staticMembersSlice = createSlice({
     ilvs: defaultIlvs,
     currentList: defaultEqList,
     bisList: dummyBis,
+    baseList: defaultEqList,
     esterList: dummyEsters,
     twineList: dummyTwines,
     glazeList: dummyGlazes,
@@ -65,6 +66,7 @@ export const staticMembersSlice = createSlice({
       state.jobs[action.payload.memberId] = action.payload.job;
       state.currentList[action.payload.memberId] = action.payload.current;
       state.bisList[action.payload.memberId] = action.payload.bis;
+      state.baseList[action.payload.memberId] = action.payload.current;
       state.ilvs[action.payload.memberId] = Math.floor(
         Object.keys(action.payload.current)
           .map((x) => action.payload.current[x].ilv)
@@ -80,7 +82,11 @@ export const staticMembersSlice = createSlice({
       state.tomestoneList[action.payload.memberId] = upgrades[3];
     },
     setEq: (state, action) => {
+      
       console.log("done");
+    },
+    revertEq: (state, action) => {
+
     },
   },
 });

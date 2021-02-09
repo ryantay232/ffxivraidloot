@@ -21,6 +21,126 @@ export const lootTableSlice = createSlice({
     countSet: {}, // {weekNo: {floor: count}}
   },
   reducers: {
+    calculateLoot2: (state, action) => {
+      const dropObj = {
+        mainArm: {},
+        head: {},
+        body: {},
+        hands: {},
+        waist: {},
+        legs: {},
+        feet: {},
+        earrings: {},
+        necklace: {},
+        bracelets: {},
+        ring: {},
+        glaze: {},
+        twine: {},
+        tomestone: {},
+        ester: {},
+      };
+      /* *
+       * take everyone who has a tome gear the glaze/twine list on dropObj and randomise
+       * from there
+       * if dont have, randomise from all
+       *
+       * books always use on twine and glaze */
+
+      const bisEqObj = action.payload.bisEq;
+      const rightSideAccList = {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0,
+      };
+      Object.keys(bisEqObj).forEach((memberId) => {
+        Object.keys(bisEqObj[memberId])
+          .filter(
+            (eq) =>
+              bisEqObj[memberId][eq].type === "Raid" &&
+              action.payload.currentEq[memberId][eq].type !== "Raid"
+          )
+          .forEach((eq) => {
+            eq = eq === "ring1" || eq === "ring2" ? "ring" : eq;
+            if (
+              eq === "earrings" ||
+              eq === "necklace" ||
+              eq === "bracelets" ||
+              eq === "ring"
+            ) {
+              rightSideAccList[memberId] += 1;
+            }
+            if (dropObj[eq][memberId] === undefined) {
+              dropObj[eq][memberId] = 1;
+            } else {
+              dropObj[eq][memberId] += 1;
+            }
+          });
+      });
+
+      // from here should check if theres set in current loot table
+      dropObj["ester"] = Object.assign({}, action.payload.esters);
+      dropObj["twine"] = Object.assign({}, action.payload.twines);
+      dropObj["glaze"] = Object.assign({}, action.payload.glazes);
+      dropObj["tomestone"] = Object.assign({}, action.payload.tomestones);
+      state.dropObj = dropObj;
+
+      //let memberOrder = shuffle(["0", "1", "2", "3", "4", "5", "6", "7"]);
+
+      let memberOrder = shuffle(
+        Object.keys(rightSideAccList).map((key) => [key, rightSideAccList[key]])
+      )
+        .sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0))
+        .map((mem) => mem[0]);
+      let esterOrder = shuffle(
+        Object.keys(dropObj["ester"]).map((key) => [key, dropObj["ester"][key]])
+      )
+        .sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0))
+        .map((mem) => mem[0]);
+      let tomestoneOrder = esterOrder;
+      let twineOrder = shuffle(
+        Object.keys(dropObj["twine"]).map((key) => [key, dropObj["twine"][key]])
+      )
+        .sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0))
+        .map((mem) => mem[0]);
+      let glazeOrder = shuffle(
+        Object.keys(dropObj["glaze"]).map((key) => [key, dropObj["glaze"][key]])
+      )
+        .sort((a, b) => (a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0))
+        .map((mem) => mem[0]);
+      const order = {
+        member: memberOrder,
+        tomestone: tomestoneOrder,
+        ester: esterOrder,
+        twine: twineOrder,
+        glaze: glazeOrder,
+      };
+
+      const drops = [
+        "waist",
+        "earrings",
+        "necklace",
+        "bracelets",
+        "ring",
+        "head",
+        "hands",
+        "feet",
+        "legs",
+        "body",
+        "mainArm",
+        "glaze",
+        "twine",
+        "tomestone",
+        "ester",
+      ];
+
+
+    },
+
     calculateLoot: (state, action) => {
       const dropObj = {
         mainArm: {},
